@@ -1,0 +1,118 @@
+<div class="auth-container">
+    <div class="wrapper">
+        <ng-container *ngIf="registrationValid()">
+            <div class="alert alert-success" role="alert" >
+                Your account has been succssefully created
+            </div>
+        </ng-container>
+      
+        <div class="sign-up-container">
+            <div class="form-top">
+                <div><h2>Créer un compte</h2></div>
+                <a routerLink="/auth/login">Vous avez déjà un compte ?</a>
+            </div>
+            <form [formGroup]="registrationFormGroup" (ngSubmit)="saveUser()">
+                <div class="form-container">
+                    <div class="form-group">
+
+                        <label for="firstName">First name</label>
+                        <input type="text" placeholder="Prénom" name="firstName" id="firstName" 
+                        class="form-control"
+                        formControlName="firstName" 
+                        [ngClass]="{'is-invalid': firstName.invalid && (firstName.touched || firstName.dirty),
+                            'is-valid': firstName.valid && (firstName.touched || firstName.dirty)}"
+                        >
+                       <div *ngIf="firstName.invalid && (firstName.touched || firstName.dirty)" class="invalid-feedback">
+                            <div *ngIf="firstName.errors?.['required']">First name is required.</div>
+                            <div *ngIf="firstName.errors?.['minlength']">First name must be at least 4 characters long.</div>
+                       </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="lastName">Last name</label>
+                        <input  type="text" name="lastName" placeholder="Nom" class="form-control" formControlName="lastName"
+                        [ngClass]="{'is-invalid': lastName.invalid && (lastName.touched || lastName.dirty),
+                            'is-valid': lastName.valid && (lastName.touched || lastName.dirty)}"
+                        >
+                        <div *ngIf="lastName.invalid && (lastName.touched || lastName.dirty)" class="invalid-feedback">
+                            <div *ngIf="lastName.errors?.['required']">Last name is required.</div>
+                            <div *ngIf="lastName.errors?.['minlength']">Last name must be at least 4 characters long.</div>
+                       </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" placeholder="user@domain.com" name="Email" class="form-control" formControlName="email"
+                        [ngClass]="{'is-invalid': email.invalid && (email.touched || email.dirty), 'is-valid': email.valid && (email.touched || email.dirty)}"
+                        >
+                        <div class="invalid-feedback"  *ngIf="email.invalid && (email.touched || email.dirty)">
+                            <div *ngIf="email.errors?.['required']">Email is required</div>
+                            <div *ngIf="email.errors?.['email']">Please enter a valid email address</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone number</label>
+                        <input type="text" name="phoneNumber" placeholder="Phone number" class="form-control" formControlName="phoneNumber"
+                        [ngClass]="{'is-invalid': phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)}">
+                        <div *ngIf="phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)" class="invalid-feedback">
+                            <div *ngIf="phoneNumber.errors?.['required']">Phone number is requried.</div>
+                            <div *ngIf="phoneNumber.errors?.['pattern']">Please Enter a valid phone number.</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">password</label>
+                        <input type="password" name="password" placeholder="*********" class="form-control" formControlName="password"
+                        [ngClass]="{
+                            'is-invalid': password.invalid && ( password.dirty || password.touched )
+                            ,'is-valid': password.valid && ( password.dirty || password.touched )}"
+                        >
+                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
+                            <div *ngIf="password.errors?.['required']">Password is required.</div>
+                            <div *ngIf="password.errors?.['pattern']">
+                                Password must be at least 8 characters long. 
+                                <br /> 
+                                Password must have at least one digit, one Upper case, one lower case character. 
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                     <mat-form-field>
+                        <mat-label>Date de naissance</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="birthdate">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                      <div class="radio-group">
+                        <label for="gender">Gender</label>
+                        <div class="radio-group-control">
+                            <input type="radio" id="male" name="gender" formControlName="gender" value="male">
+                            <label for="male">Homme</label>
+                        </div>
+                        <div class="radio-group-control">
+                            <input type="radio" id="female" name="gender" formControlName="gender" value="female">
+                            <label for="male">Femme</label>
+                        </div>
+                     </div>
+                </div>
+
+                 <div class="form-actions">
+                    <button mat-flat-button class="btn btn-primary" type="submit">Sign Up</button>
+                 </div>
+               
+            </form> 
+        </div>
+    
+        <!-- <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use our services</p>
+                    <a routerLink="/auth/login" mat-flat-button class="hidden" id="login" class="btn-flat">
+                        Sign In
+                    </a>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+
+    
+    

@@ -1,0 +1,41 @@
+<div class="auth-container">
+    <div class="wrapper">
+        <div class="form-container sign-in">
+            <form [formGroup]="form" (ngSubmit)="login()">
+                 <h2>Bienvenue sur promolog</h2>
+                 <div class="social-icons">
+                    <a href="" class="icon">
+                        <i class="fa-brands fa-google-plus-g"></i>
+                    </a>
+                    <a href="" class="icon">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                 </div>
+                 <span>vous avez déjà un compte ?</span>
+                 <input type="email" placeholder="Email" class="form-control" formControlName="email">
+                 <input type="password" placeholder="Mot de passe" class="form-control" formControlName="password">
+                 <a >Mot de passe oublié ?</a>
+                 <button 
+                 type="submit" 
+                 [ngClass]="form.valid ? 'btn-success' : ''"  
+                 [disabled]="form.invalid"
+                 class="btn-flat" 
+                 mat-flat-button>
+                    Sign In
+                </button>
+            </form> 
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello!</h1>
+                    <p>register with your personal details to use our services</p>
+                    <a routerLink="/auth/register" mat-flat-button class="hidden" id="login" class="btn-flat">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    

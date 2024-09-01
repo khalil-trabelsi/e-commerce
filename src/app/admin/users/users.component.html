@@ -1,0 +1,7 @@
+<!-- @if (this.isAuthorized) {
+    {{ usersService.getAllUsers() | async }}
+} @else {
+    <p>You are not authorized</p>
+} -->
+
+{{ (users | async) | json }}

@@ -1,0 +1,14 @@
+.error-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+    flex-direction: column;
+    
+    span {
+        display: inline-flex;
+        font-size: 40px;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+}
