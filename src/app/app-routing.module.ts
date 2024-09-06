@@ -3,12 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ProfileComponent } from './profile/profile.component';
-import { UsersComponent } from './admin/users/users.component';
+import { AdminComponent } from './admin/admin.component';
+import { authGuard } from './helpers/auth-guard';
+import { loginGuard } from './helpers/login.guard';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: 'auth/login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [loginGuard]
   }, 
   {
     path: 'auth/register',
@@ -16,18 +21,26 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: []
   },
   {
-    path: 'users',
-    component: UsersComponent
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canMatch: [authGuard],
+    data: {roles: ['ADMIN', 'MODERATOR']},
   },
   {
-    path: '**', redirectTo: '/auth/login'
+    path: 'unauthorized',
+    component: UnauthorizedComponent
+  },
+  {
+    path: 'page-not-found',
+    component: NotFoundComponent
+  },
+  {
+    path: '**', redirectTo: '/page-not-found'
   }
-  // {
-  //   path: 'auth/register'
-  // }
 ];
 
 @NgModule({

@@ -1,7 +1,22 @@
-<!-- @if (this.isAuthorized) {
-    {{ usersService.getAllUsers() | async }}
-} @else {
-    <p>You are not authorized</p>
-} -->
+<div class="dash-container">
+    <div class="dash-title">
+        <h1>Users</h1>
+    </div>
+    <button class="btn btn-primary" (click)="addUser()">
+        <span class="material-symbols-outlined">
+            person_add
+        </span>
+            New user
+    </button>
+    <ag-grid-angular
+    [rowData]="allUsers"
+    [columnDefs]="colDefs"
+    [autoSizeStrategy]="autoSizeStrategy"
+    class="ag-theme-quartz"
+    style="width: 90%; height: 657px;"
+    [defaultColDef]="defaultColDef"
+    pagination="{{true}}"
+    paginationAutoPageSize="{{true}}"
+    />
+</div>
 
-{{ (users | async) | json }}

@@ -1,0 +1,106 @@
+<div class="main-container">
+    <div class="side-bar">
+        <div class="logo">
+                <h2>E-commerce</h2>
+        </div>
+        <div class="menu">
+            <div class="nav-group">
+                <span class="nav-group-title">GENERAL</span>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        dashboard
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#" routerLink="/admin/dashboard">Dashboard</a>
+                </div>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        compare_arrows
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#">Payment</a>
+                </div>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        apps
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#">Orders</a>
+                </div>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        currency_exchange
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#">Sales</a>
+                </div>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        chat
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#">Messages</a>
+                </div>
+            </div>
+
+            <div class="nav-group">
+                <span class="nav-group-title">TOOLS</span>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        store
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#">Suppliers</a>
+                </div>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        inventory_2
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#">Products</a>
+                </div>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        category
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#">Categories</a>
+                </div>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        group
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#" routerLink="/admin/users">Users</a>
+                </div>
+                <div class="nav-item">
+                    <span class="material-symbols-outlined">
+                        chat
+                    </span>
+                    <a routerLinkActive="link-active" class="nav-link" href="#">Messages</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="admin-panel">
+        <div class="nav-bar">
+          <div class="left-bar">
+            <input type="text" class="search-input" placeholder="search...">
+            <div class="icon">
+                <span class="material-symbols-outlined">
+                    notifications
+                </span>
+            </div>
+          </div>
+          <div class="right-bar">
+            <div class="profile-info">
+                <img src="../../../assets/person-logo.png" alt="profile logo" class="profile-pic" matToolTip="user logo">
+                <div class="user-info">
+                    <span class="user-info-name">Khalil Trabelsi</span>
+                    <span class="user-info-role">Admin</span>
+                </div>
+                <button mat-icon-button matTooltip="logout" (click)="logout()">
+                    <span class="material-symbols-outlined">
+                        logout
+                    </span>
+                </button>
+            </div>
+          </div>
+        </div>
+        <section class="content">
+          <router-outlet></router-outlet>
+        </section>
+    </div>
+    
+</div>

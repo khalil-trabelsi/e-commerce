@@ -8,21 +8,21 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatButtonModule} from '@angular/material/button';
 import { RegisterComponent } from './auth/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { httpInterceptorProviders } from './helpers/http-interceptor.service';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ProfileComponent } from './profile/profile.component';
-import { UsersComponent } from './admin/users/users.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { CustomGridActionComponent } from './admin/custom-grid-action/custom-grid-action.component';
+import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AgMaterialModule } from './ag-material/ag-material.module';
+import { DatePickerFormatDirective } from './directives/date-picker-format.directive';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -32,20 +32,20 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
     ErrorDialogComponent,
     SpinnerComponent,
     ProfileComponent,
-    UsersComponent,
-    DashboardComponent,
+    CustomGridActionComponent,
+    ConfirmDialogComponent,
+    UnauthorizedComponent,
+    NotFoundComponent,
+    DatePickerFormatDirective,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatFormFieldModule, 
-    MatInputModule,
-    MatIconModule,
+    AgMaterialModule,
     MatDatepickerModule,
-    MatButtonModule,
-    MatDialogModule
+    MatMomentDateModule
   ],
   providers: [
     provideAnimationsAsync(),

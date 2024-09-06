@@ -6,10 +6,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class NotificationService {
   private _snackbar = inject(MatSnackBar);
 
-  notify(message: string, action: string): void {
-    this._snackbar.open(message, action),  {
+  notify(message: string, action: string = 'Ok'): void {
+    this._snackbar.open(message, action,  {
       duration: 3000
-    }
+    })
   } 
 
 }

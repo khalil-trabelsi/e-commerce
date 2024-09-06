@@ -2,6 +2,7 @@ import { Component, signal, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { NotificationService } from '../../helpers/notification.service';
+import { DateFormattingService } from '../../helpers/date-formatting.service';
 
 @Component({
   selector: 'app-register',
@@ -27,14 +28,15 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private dateFormatteingService: DateFormattingService
   ) { }
 
   saveUser() {
     const user = {
       first_name: this.registrationFormGroup.controls.firstName.value,
       last_name: this.registrationFormGroup.controls.lastName.value,
-      birth_date: this.formatDateToYYMMDD(this.registrationFormGroup.controls.birthdate.value),
+      birth_date: this.dateFormatteingService.formatDateToYYMMDD(this.registrationFormGroup.controls.birthdate.value),
       email: this.registrationFormGroup.controls.email.value,
       password: this.registrationFormGroup.controls.password.value,
       gender: this.registrationFormGroup.controls.gender.value,
@@ -48,13 +50,6 @@ export class RegisterComponent {
     });
   }
 
-  formatDateToYYMMDD(date: any) {
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear()).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`
-  }
 
 
   get firstName() {

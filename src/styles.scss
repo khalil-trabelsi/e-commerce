@@ -1,4 +1,3 @@
-
 :root {
     --color-danger: #dc3545;
     --color-primary: #007bff;
@@ -18,8 +17,10 @@
 
 html, body { height: 100%; }
 body { 
-    margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: Helvetica, Roboto, Arial, Tahoma, sans-serif;
+    color: #333;
+    font-size: 12px;
+    line-height: 1.42857143;
 
  }
  .auth-container {
@@ -147,6 +148,14 @@ body {
     gap: 15px
 }
 
+.btn {
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 4px 5px;
+    border: 1px solid transparent;
+
+}
+
 
 .btn-flat {
     padding: 10px 45px !important;
@@ -155,10 +164,7 @@ body {
 
 }
 
-.btn-primary {
-    background-color: var(--color-purple) !important;
-    color: #ccc !important;
-}
+
 
 .alert {
     padding: 10px 20px;
@@ -181,6 +187,17 @@ body {
     font-size: 16px;
 }
 
+.btn-primary {
+    background-color: var(--color-purple) !important;
+    color: #ccc !important;
+}
+
+.btn-blue {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: #ccc !important;
+}
+
 .btn-secondary {
     background-color: var(--color-secondary) !important;
     border-color: var(--color-secondary) !important;
@@ -192,6 +209,13 @@ body {
     border-color: #155724 !important;
     color: #fff !important;
 }
+
+.btn-danger {
+    background-color: var(--color-danger) !important;
+    border-color: var(--color-danger) !important;
+    color: #fff !important;
+}
+
 
 .radio-group-control {
     display: flex;
@@ -302,7 +326,7 @@ body {
 
     height: 100%;
 
-    padding: 15px 18px;
+    padding: 15px 0 18px 15px;
 
 }
 
@@ -338,13 +362,6 @@ body {
 
 }
 
- 
-
-.mat-mdc-dialog-container .mdc-dialog__content {
-
-    font-size: 14px !important;
-
-}
 
  
 
@@ -370,4 +387,13 @@ body {
 
     border-color: #0C3864 !important;
 
+}
+
+.dialiog-title {
+    border-bottom: 1px solid #777;
+    background-color: #274c77;
+    color: #fff !important;
+}
+.dialog-content {
+    border-bottom: 1px solid #777;
 }
