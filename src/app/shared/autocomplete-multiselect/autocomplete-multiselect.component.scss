@@ -1,0 +1,43 @@
+.box-search {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 36px;
+    position: relative;
+
+    input {
+        padding: 6px 8px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        outline: none;
+        border: 1px solid #cecece;
+        flex-grow: 2;
+        flex-basis: 100%;
+        padding-left: 35px;
+        font-size: 1rem;
+    }
+
+    .check {
+        z-index: 99;
+    }
+
+    .icon {
+        z-index: 22px;
+        position: absolute;
+        right: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        color: #dc3545;
+        display: inline-block;
+        transform: translateY(-50%);
+        top: 50%;
+    }
+}
+
+.option {
+    border-bottom: 1px solid #ddd;
+}

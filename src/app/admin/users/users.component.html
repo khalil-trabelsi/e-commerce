@@ -17,6 +17,8 @@
     [defaultColDef]="defaultColDef"
     pagination="{{true}}"
     paginationAutoPageSize="{{true}}"
-    />
+    [context]="context"
+    (gridReady)="onGridReady($event)"
+    ></ag-grid-angular>
 </div>
 

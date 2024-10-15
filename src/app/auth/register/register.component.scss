@@ -9,10 +9,6 @@
 }
 .sign-up-container {
     .form-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-
         label {
             font-weight: bold;
             color: #333;

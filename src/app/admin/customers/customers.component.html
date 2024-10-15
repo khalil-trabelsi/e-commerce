@@ -1,0 +1,88 @@
+<div class="dash-container">
+    <section class="dash-title">
+        <h1>Customers</h1>
+    </section>
+    <section>
+        <button class="btn-add btn-primary" (click)="addCustomer()">
+            <span class="material-symbols-outlined">
+                add
+            </span>
+                New Customer
+        </button>
+    </section>
+
+    <section class="table-container" (scroll)="scroll($event)">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Birthdate</th>
+                    <th>Email</th>
+                    <th>Created at</th>
+                    <th>Gender</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (customer of customers; track $index) {
+                    <tr>
+                        <td>{{customer.id}}</td>
+                        
+                 
+                        <td>{{customer.first_name}}</td>
+                        <td>{{customer.last_name}}</td>
+                        <td>{{customer.birth_date}}</td>
+                        <td>{{customer.email}}</td>
+                        <td>{{customer.created_at | date:'medium'}}</td>
+                        <td>{{customer.gender}}</td>
+                        <td>
+                            <p class="status" [ngClass]="customer.status === 'active' ? 'bg-success': customer.status=='inactive' ? 'bg-danger' : 'bg-warning'">{{customer.status}}</p>
+                        </td>
+                        <td style="display: flex; align-items: center; gap: 15px;">
+                            <div class="dropdown">
+                                <button class="btn btn-info" matTooltip="delete" (click)="showUserAction($index, $event)">
+                                    <span class="material-symbols-outlined icon">
+                                        more_vert
+                                    </span>
+                                </button>
+                                <ul class="action-menu" [ngClass]="{'action-menu-bottom': dropdownAtBottom(), 'action-menu-top': !dropdownAtBottom()}" *ngIf="$index===currentItemClicked() && showDropdownMenu()">
+                                    <li>
+                                        <a (click)="editCustomer(customer)">Edit</a>
+                                    </li>
+                                    @if (customer.status === 'active') {
+                                        <li>
+                                            <a (click)="deactivateCustomer(customer.id)">Deactivate</a>
+                                        </li>
+                                        <li (click)="banCustomer(customer.id)">
+                                            <a>Ban</a>
+                                        </li>
+                                    } @else if (customer.status === "inactive") {
+                                        <li>
+                                            <a (click)="activeCustomer(customer.id)">Activate</a>
+                                        </li>
+                                        <li (click)="banCustomer(customer.id)">
+                                            <a>Ban</a>
+                                        </li>
+                                    } @else {
+                                        <li>
+                                            <a (click)="activeCustomer(customer.id)">Activate</a>
+                                        </li>
+                                        <li>
+                                            <a (click)="deactivateCustomer(customer.id)">Deactivate</a>
+                                        </li>
+                                    }
+                               
+                              
+                                   
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>

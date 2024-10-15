@@ -1,0 +1,71 @@
+<h3 mat-dialog-title class="dialiog-title">
+    New product
+</h3>
+  
+<mat-dialog-content class="dialog-content">
+    <form [formGroup]="productFormGroup">
+        <div class="form-container">
+            <div class="form-group">
+                <label for="name">Product name</label>
+                <input type="text" name="name" class="form-control" formControlName="name" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="price_ht">Price</label>
+                <input type="number" name="price_ht" class="form-control" formControlName="price_ht">
+            </div>
+            <div class="form-group">
+                <label for="tva">TVA</label>
+                <input type="number" name="tva" class="form-control" formControlName="tva">
+            </div>
+            <div class="form-group">
+                <label for="files">Product images</label>
+                <input type="file" name="files" class="file-upload" (change)="onFileSelected($event)" #fileUpload multiple accept="image/*">
+                <div class="file-uploaded">
+                    <button type="button" mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <div style="font-size: 14px;">
+                        @for (imageName of selectedImagesName; track $index) {
+                            <p>{{imageName}}</p>
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <app-autocomplete-multiselect
+                type="brands"
+                key="name"
+                optionId="id"
+                [multiple]="multiple"
+                label="brands"
+                [options]="brands()"
+                (selectedOptions)="getSelectedOptions($event)">
+            </app-autocomplete-multiselect>
+            <app-autocomplete-multiselect
+                type="categories"
+                key="name"
+                optionId="id"
+                [multiple]="multiple"
+                label="categories"
+                [options]="categories()"
+                (selectedOptions)="getSelectedOptions($event)">
+            </app-autocomplete-multiselect>
+            <div class="form-group description-control">
+                <label for="description">Description</label>
+                <textarea type="text" placeholder="Description" name="description" 
+                class="form-control"
+                autocomplete="off"
+                formControlName="description"
+                >
+            </textarea>
+            </div>
+        </div>
+    </form> 
+
+    
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" >
+    <button mat-flat-button class="btn btn-primary" (click)="addProduct()">Save</button>
+    <button mat-dialog-close="" mat-flat-button class="btn btn-secondary" >Close</button>
+</mat-dialog-actions>

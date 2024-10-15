@@ -1,0 +1,68 @@
+<div class="dash-container">
+    <section class="dash-title">
+        <h1>Stock Movements</h1>
+    </section>
+    <section class="page-header">
+        <button class="btn-add btn-primary" (click)="addStockEntry()">
+            <span class="material-symbols-outlined">
+                add
+            </span>
+                Add entry
+        </button>
+
+        <div class="main-filter">
+            <form [formGroup]="filterFormGroup" (ngSubmit)="filterStockMovementsData()">
+                <div class="form-filter-container">
+                    <app-autocomplete-multiselect
+                        type="suppliers"
+                        key="name"
+                        optionId="id"
+                        [multiple]="multiple"
+                        label="Suppliers"
+                        [options]="suppliers()"
+                        (selectedOptions)="getSelectedOptions($event)">
+                    </app-autocomplete-multiselect>
+                    <app-autocomplete-multiselect
+                        type="products"
+                        key="name"
+                        optionId="id"
+                        [multiple]="multiple"
+                        label="Products"
+                        [options]="products()"
+                        (selectedOptions)="getSelectedOptions($event)">
+                    </app-autocomplete-multiselect>
+                    <mat-form-field >
+                        <mat-label>Min Quantity</mat-label>
+                        <input matInput type="number" min="0" formControlName="min_quantity">
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Max Quantity</mat-label>
+                        <input matInput type="number" min="0" formControlName="max_quantity">
+                    </mat-form-field>
+                    <!-- <div >
+                        <input type="number" name="quantity" class="form-control">
+                    </div> -->
+                <button mat-flat-button class="btn btn-blue" type="submit" matTooltip="Load">
+                    <span class="material-symbols-outlined">download</span>
+                </button>
+                <button mat-flat-button class="btn btn-warning" type="button" matTooltip="Refresh">
+                    <span class="material-symbols-outlined">refresh</span>
+                </button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <ag-grid-angular
+        [rowData]="stockMovements"
+        [columnDefs]="colDefs"
+        [rowClassRules]="rowClassRules"
+        [autoSizeStrategy]="autoSizeStrategy"
+        class="ag-theme-quartz"
+        style="width: 98%; height: 67vh;"    
+        pagination="{{true}}"
+        paginationAutoPageSize="{{true}}"
+        />
+    
+</div>

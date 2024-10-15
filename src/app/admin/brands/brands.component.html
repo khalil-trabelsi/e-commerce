@@ -1,0 +1,23 @@
+<div class="dash-container">
+    <div class="dash-title">
+        <h1>Brands</h1>
+    </div>
+    <button class="btn-add btn-primary" (click)="addBrand()">
+        <span class="material-symbols-outlined">
+            add
+        </span>
+            New Brand
+    </button>
+    <ag-grid-angular
+    [rowData]="brands"
+    [columnDefs]="colDefs"
+    [getRowClass]="getRowClass"
+    [autoSizeStrategy]="autoSizeStrategy"
+    [context]="context"
+    class="ag-theme-quartz"
+    style="width: 98%; min-height: 600px; height: 40vh;"
+    pagination="{{true}}"
+    paginationAutoPageSize="{{true}}"
+    (gridReady)="onGridReady($event)"
+    />
+</div>

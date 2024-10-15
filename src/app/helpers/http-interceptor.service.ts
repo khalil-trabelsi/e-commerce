@@ -30,19 +30,22 @@ export class HttpRequestInterceptor implements HttpInterceptor {
       return next.handle(newRequest).pipe(
         catchError((err: any) => {
           if (err instanceof HttpErrorResponse && !newRequest.url.includes('auth/logout') && !newRequest.url.includes('auth/login') && err.status === 401) {
-            console.log('run')
+            if(err.error.error.includes('Token is invalid or revoked')) {
+              this.authService.logout()
+            }
             return this.handle401Error(newRequest, next);
           }
           let errMsg = '';
           let statusCode = err.status;
+          console.error(err)
           if(err instanceof HttpErrorResponse) {
             if (err.error.message) {
               errMsg = err.error.message
             } else if (err.error.error) {
               errMsg = err.error.error;
+            } else {
+              errMsg = err.error;
             }
-            console.log(err)
-            console.log(err)
             this.dialog.open(ErrorDialogComponent, {
               width: '450px',
               height: '300px',

@@ -1,0 +1,55 @@
+<h3 mat-dialog-title class="dialiog-title">
+    @if (actionType === 'create') {
+        New Brand
+    } @else {
+        Update Brand #{{data.brand.id}}
+    }
+</h3>
+<mat-dialog-content class="dialog-content">
+    <form [formGroup]="brandFormGroup">
+        <div class="form-container">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" placeholder="Supplier name" name="name" 
+                class="form-control"
+                formControlName="name" 
+                [ngClass]="{'is-invalid': name.invalid && (name.touched || name.dirty),
+                    'is-valid': name.valid && (name.touched || name.dirty)}"
+                autocomplete="off"    
+                >
+               <div *ngIf="name.invalid && (name.touched || name.dirty)" class="invalid-feedback">
+                    <div *ngIf="name.errors?.['required']">Name is required.</div>
+                    <div *ngIf="name.errors?.['minlength']">Brand name must be at least 4 characters long.</div>
+               </div>
+            </div>
+            <div class="form-group">
+                <label for="description">description</label>
+                <textarea name="description" id=""  formControlName="description" class="form-control"></textarea>
+            </div>
+
+        </div>
+    </form> 
+
+    
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" >
+    <button 
+        *ngIf="actionType == 'create'" 
+        mat-flat-button 
+        [ngClass]="brandFormGroup.invalid ? 'btn' : 'btn btn-primary'" 
+        [disabled]="brandFormGroup.invalid"
+        (click)="addBrand()">
+        Create
+    </button>
+    <button  
+        *ngIf="actionType == 'edit'" 
+        mat-flat-button 
+        [ngClass]="brandFormGroup.invalid ? 'btn' : 'btn btn-primary'" 
+        [disabled]="brandFormGroup.invalid"
+        (click)="editBrand()"
+        >
+        Save
+    </button>
+    <button mat-dialog-close="" mat-flat-button class="btn btn-secondary" >Close</button>
+</mat-dialog-actions>

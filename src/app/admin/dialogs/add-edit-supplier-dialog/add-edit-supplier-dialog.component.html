@@ -1,0 +1,149 @@
+<h3 mat-dialog-title class="dialiog-title">
+    @if (actionType === 'create') {
+        New Supplier
+    } @else {
+        Update Supplier #{{data.supplier.id}}
+    }
+</h3>
+<mat-dialog-content class="dialog-content">
+    <form [formGroup]="supplierFormGroup">
+        <div class="form-container">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" placeholder="Supplier name" name="name" 
+                class="form-control"
+                formControlName="name" 
+                [ngClass]="{'is-invalid': name.invalid && (name.touched || name.dirty),
+                    'is-valid': name.valid && (name.touched || name.dirty)}"
+                autocomplete="off"    
+                >
+               <div *ngIf="name.invalid && (name.touched || name.dirty)" class="invalid-feedback">
+                    <div *ngIf="name.errors?.['required']">First name is required.</div>
+                    <div *ngIf="name.errors?.['minlength']">First name must be at least 4 characters long.</div>
+               </div>
+            </div>
+            <div class="form-group">
+                <label for="contactName">Contact Name</label>
+                <input type="text" placeholder="Contact name" name="contactName" 
+                class="form-control"
+                formControlName="contactName" 
+                [ngClass]="{'is-invalid': contactName.invalid && (contactName.touched || contactName.dirty),
+                    'is-valid': contactName.valid && (contactName.touched || contactName.dirty)}"
+                autocomplete="off"    
+                >
+               <div *ngIf="contactName.invalid && (contactName.touched || contactName.dirty)" class="invalid-feedback">
+                    <div *ngIf="contactName.errors?.['required']">Contact name is required.</div>
+                    <div *ngIf="contactName.errors?.['minlength']">Contact name must be at least 4 characters long.</div>
+               </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" placeholder="jot@sts.fr" name="email" 
+                class="form-control"
+                formControlName="email" 
+                [ngClass]="{'is-invalid': email.invalid && (email.touched || email.dirty),
+                    'is-valid': email.valid && (email.touched || email.dirty)}"
+                autocomplete="off"    
+                >
+               <div *ngIf="email.invalid && (email.touched || email.dirty)" class="invalid-feedback">
+                    <div *ngIf="email.errors?.['required']">Email is required.</div>
+                    <div *ngIf="email.errors?.['email']">Email is not valid.</div>
+               </div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" placeholder="Phone" name="phone" 
+                class="form-control"
+                formControlName="phone" 
+                [ngClass]="{'is-invalid': phone.invalid && (phone.touched || phone.dirty),
+                    'is-valid': phone.valid && (phone.touched || phone.dirty)}"
+                autocomplete="off"    
+                >
+               <div *ngIf="phone.invalid && (phone.touched || phone.dirty)" class="invalid-feedback">
+                    <div *ngIf="phone.errors?.['required']">Phone is required.</div>
+                    <div *ngIf="phone.errors?.['minlength']">Phone must be at least 4 characters long.</div>
+               </div>
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" placeholder="country" name="country" 
+                class="form-control"
+                formControlName="country" 
+                [ngClass]="{'is-invalid': country.invalid && (country.touched || country.dirty),
+                    'is-valid': country.valid && (country.touched || country.dirty)}"
+                autocomplete="off"    
+                >
+               <div *ngIf="country.invalid && (country.touched || country.dirty)" class="invalid-feedback">
+                    <div *ngIf="country.errors?.['required']">Country is required.</div>
+                    <div *ngIf="country.errors?.['minlength']">Country must be at least 4 characters long.</div>
+               </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" placeholder="Address" name="address" 
+                class="form-control"
+                formControlName="address" 
+                [ngClass]="{'is-invalid': address.invalid && (address.touched || address.dirty),
+                    'is-valid': address.valid && (address.touched || address.dirty)}"
+                autocomplete="off"    
+                >
+               <div *ngIf="address.invalid && (address.touched || address.dirty)" class="invalid-feedback">
+                    <div *ngIf="address.errors?.['required']">Address is required.</div>
+                    <div *ngIf="address.errors?.['minlength']">Address must be at least 4 characters long.</div>
+               </div>
+            </div>
+            <div class="form-group">
+                <label for="contactName">City</label>
+                <input type="text" placeholder="City" name="city" 
+                class="form-control"
+                formControlName="city" 
+                [ngClass]="{'is-invalid': city.invalid && (city.touched || city.dirty),
+                    'is-valid': city.valid && (city.touched || city.dirty)}"
+                autocomplete="off"    
+                >
+               <div *ngIf="city.invalid && (city.touched || city.dirty)" class="invalid-feedback">
+                    <div *ngIf="city.errors?.['required']">City is required.</div>
+                    <div *ngIf="city.errors?.['minlength']">City must be at least 4 characters long.</div>
+               </div>
+            </div>
+            <div class="form-group">
+                <label for="contactName">Zipcode</label>
+                <input type="text" placeholder="zipcode" name="zipcode" 
+                class="form-control"
+                formControlName="zipcode" 
+                [ngClass]="{'is-invalid': zipcode.invalid && (zipcode.touched || zipcode.dirty),
+                    'is-valid': zipcode.valid && (zipcode.touched || zipcode.dirty)}"
+                autocomplete="off"    
+                >
+               <div *ngIf="zipcode.invalid && (zipcode.touched || zipcode.dirty)" class="invalid-feedback">
+                    <div *ngIf="zipcode.errors?.['required']">Zipcode is required.</div>
+                    <div *ngIf="zipcode.errors?.['minlength']">Zipcode must be at least 4 characters long.</div>
+               </div>
+            </div>
+
+        </div>
+    </form> 
+
+    
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" >
+    <button 
+        *ngIf="actionType == 'create'" 
+        mat-flat-button 
+        [ngClass]="supplierFormGroup.invalid ? 'btn' : 'btn btn-primary'" 
+        [disabled]="supplierFormGroup.invalid"
+        (click)="addSupplier()">
+        Create
+    </button>
+    <button  
+        *ngIf="actionType == 'edit'" 
+        mat-flat-button 
+        [ngClass]="supplierFormGroup.invalid ? 'btn' : 'btn btn-primary'" 
+        [disabled]="supplierFormGroup.invalid"
+        (click)="editSupplier()"
+        >
+        Save
+    </button>
+    <button mat-dialog-close="" mat-flat-button class="btn btn-secondary" >Close</button>
+</mat-dialog-actions>

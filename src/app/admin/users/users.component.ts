@@ -6,14 +6,16 @@ import {
   SizeColumnsToContentStrategy,
   SizeColumnsToFitGridStrategy,
   SizeColumnsToFitProvidedWidthStrategy,
+  GridApi,
+  GridReadyEvent
 } from "ag-grid-community";
-import { CustomGridActionComponent } from '../custom-grid-action/custom-grid-action.component';
 import { DateFormattingService } from '../../helpers/date-formatting.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { AddEditUserDialogComponent } from '../dialogs/add-edit-user-dialog/add-edit-user-dialog.component';
 import { NotificationService } from '../../helpers/notification.service';
+import { CustomGridActionComponent } from '../custom-grid-action/custom-grid-action.component';
 
 
 @Component({
@@ -22,8 +24,11 @@ import { NotificationService } from '../../helpers/notification.service';
   styleUrl: './users.component.scss'
 })
 export class UsersComponent implements OnInit, OnDestroy {
+  type = 'usersComponent'
   private destroy$ = new Subject<void>();
   allUsers: any[] = [];
+  gridApi!: GridApi;
+  context = this;
 
   
   defaultColDef: ColDef = {
@@ -36,14 +41,12 @@ export class UsersComponent implements OnInit, OnDestroy {
     {
       headerName: 'Id',
       field: 'id',
+      pinned: 'left',
     },
     {
-      headerName: 'First name',
-      field: 'first_name'
-    },
-    {
-      headerName: 'Last name',
-      field: 'last_name'
+      headerName: 'Username',
+      field: 'username',
+      pinned: 'left'
     },
     {
       headerName: 'Email',
@@ -63,14 +66,22 @@ export class UsersComponent implements OnInit, OnDestroy {
     },
     {
       headerName: 'Created At',
-      field: 'createdAt',
+      field: 'created_at',
       cellRenderer: (params: any) => {
         return this.dateFormattingService.formatDateToTimestampString(params.node.data.created_at);
       }    
     },
     {
+      headerName: 'Updated At',
+      field: 'updated_at',
+      cellRenderer: (params: any) => {
+        return this.dateFormattingService.formatDateToTimestampString(params.node.data.updated_at);
+      }    
+    },
+    {
       headerName: 'Action',
-      cellRenderer: CustomGridActionComponent
+      cellRenderer: CustomGridActionComponent,
+      pinned: 'right'
     }
   ]
 
@@ -97,7 +108,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     )
   }
 
-  getAllUsers() {
+  private getAllUsers() {
     this.usersService.getAllUsers().pipe(takeUntil(this.destroy$)).subscribe(
       users => {
         this.allUsers = users;
@@ -118,7 +129,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     ref.afterClosed().subscribe(
       newUser => {
         if (newUser) {
-          this.authService.register(newUser).subscribe(
+          this.usersService.addUser(newUser).subscribe(
             result => {
               console.log(result); 
               this.notificationService.notify(`User was successffully created!`);
@@ -128,6 +139,10 @@ export class UsersComponent implements OnInit, OnDestroy {
         }
       }
     )
+  }
+
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
   }
 
   ngOnDestroy(): void {

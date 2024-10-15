@@ -1,0 +1,17 @@
+<mat-form-field>
+    <mat-label>{{label()}}</mat-label>
+    <mat-select [multiple]="multiple()" panelClass="overlay-panel" [formControl]="selectedOptionsControl" class="select" [matTooltip]="toolTip">
+      <div class="box-search" >
+        @if (multiple()) {
+          <mat-checkbox class="check" [formControl]="selectAll" (change)="toggleSelectAll($event.checked)"></mat-checkbox>
+        }
+        <input [ngClass]="multiple() ? '' : 'input-search-icon' " type="text" placeholder="..." [formControl]="searchFormControl">
+        <span *ngIf="searchFormControl.value !== ''" class="material-symbols-outlined icon" (click)="clear()">
+          close
+        </span>
+      </div>
+      @for (option of filteredOptions(); track option) {
+    <mat-option class="option" [value]="option[optionId()]">{{option[key()]}}</mat-option>
+  }
+    </mat-select>
+</mat-form-field>

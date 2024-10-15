@@ -1,0 +1,71 @@
+<h3 mat-dialog-title class="dialiog-title">
+    @if (actionType === 'create') {
+        New Category
+    } @else {
+        Update Category #{{data.category?.id}}
+    }
+</h3>
+<mat-dialog-content class="dialog-content">
+    <form [formGroup]="categoryFormGroup">
+        <div class="form-container">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" placeholder="Category name" name="name" 
+                class="form-control"
+                formControlName="name" 
+                [ngClass]="{'is-invalid': name.invalid && (name.touched || name.dirty),
+                    'is-valid': name.valid && (name.touched || name.dirty)}"
+                autocomplete="off"    
+                >
+                
+               <div *ngIf="name.invalid && (name.touched || name.dirty)" class="invalid-feedback">
+                    <div *ngIf="name.errors?.['required']">Category name is required.</div>
+                    <div *ngIf="name.errors?.['minlength']">Category name must be at least 4 characters long.</div>
+               </div>
+            </div>
+            <div class="form-group"> 
+                <app-autocomplete-multiselect
+                [options]="allCategories()"
+                key="name"
+                optionId="id"
+                label="Categories"
+                type="categories"
+                (selectedOptions)="getSelectedOptions($event)"
+                [multiple]="multiple">
+                </app-autocomplete-multiselect>
+            </div>
+            <div class="form-group description-control">
+                <label for="description">Description</label>
+                <textarea type="text" placeholder="Description" name="description" 
+                class="form-control"
+                formControlName="description" 
+                autocomplete="off"    
+                >
+            </textarea>
+            </div>
+        </div>
+    </form> 
+
+    
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" >
+    <button 
+        *ngIf="actionType == 'create'" 
+        mat-flat-button 
+        [ngClass]="categoryFormGroup.invalid ? 'btn' : 'btn btn-primary'" 
+        [disabled]="categoryFormGroup.invalid"
+        (click)="addCategory()">
+        Create
+    </button>
+    <button  
+        *ngIf="actionType == 'edit'" 
+        mat-flat-button 
+        [ngClass]="categoryFormGroup.invalid ? 'btn' : 'btn btn-primary'" 
+        [disabled]="categoryFormGroup.invalid"
+        (click)="editCategory()"
+        >
+        Save
+    </button>
+    <button mat-dialog-close="" mat-flat-button class="btn btn-secondary" >Close</button>
+</mat-dialog-actions>

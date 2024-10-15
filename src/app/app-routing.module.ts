@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AdminComponent } from './admin/admin.component';
+
 import { authGuard } from './helpers/auth-guard';
 import { loginGuard } from './helpers/login.guard';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ConfirmationEmailComponent } from './auth/confirmation-email/confirmation-email.component';
+import { ConfirmationEmailNotificationComponent } from './auth/confirmation-email-notification/confirmation-email-notification.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,14 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
+    path: 'confirmation/:token',
+    component: ConfirmationEmailComponent
+  },
+  {
+    path: 'register/confirmation',
+    component: ConfirmationEmailNotificationComponent
+  },
+  {
     path: 'profile',
     component: ProfileComponent,
     canActivate: []
@@ -29,6 +39,10 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canMatch: [authGuard],
     data: {roles: ['ADMIN', 'MODERATOR']},
+  },
+  {
+    path: 'client',
+    loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
   },
   {
     path: 'unauthorized',

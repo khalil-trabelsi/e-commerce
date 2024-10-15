@@ -1,0 +1,47 @@
+<h3 mat-dialog-title class="dialiog-title">
+    New product
+</h3>
+  
+<mat-dialog-content class="dialog-content">
+    <form>
+        <div class="form-container">
+            <app-autocomplete-multiselect
+                type="suppliers"
+                key="name"
+                optionId="id"
+                [multiple]="multiple"
+                label="Suppliers"
+                [options]="suppliers()"
+                (selectedOptions)="getSelectedOptions($event)">
+            </app-autocomplete-multiselect>
+            <app-autocomplete-multiselect
+                type="products"
+                key="name"
+                optionId="id"
+                [multiple]="multiple"
+                label="Products"
+                [options]="products()"
+                (selectedOptions)="getSelectedOptions($event)">
+            </app-autocomplete-multiselect>
+            <div class="form-group">
+                <label for="quantity">Quantité</label>
+                <input [formControl]="quantityControl" type="number" name="quantity" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="reference">Reference</label>
+                <input [formControl]="referenceControl" type="text" name="reference" class="form-control">
+            </div>
+            <div class="form-group description-control">
+                <label for="comment">Comment</label>
+                <textarea [formControl]="commentControl" class="form-control"  name="comment" id=""></textarea>
+            </div>
+        </div>
+    </form> 
+
+    
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" >
+    <button mat-flat-button class="btn btn-primary" (click)="addStockEntry()">Save</button>
+    <button mat-dialog-close="" mat-flat-button class="btn btn-secondary" >Close</button>
+</mat-dialog-actions>

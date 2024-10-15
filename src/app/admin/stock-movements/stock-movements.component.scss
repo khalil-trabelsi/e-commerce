@@ -1,0 +1,19 @@
+.form-filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 3;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 8px 10px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 8px rgba(0,0,0, 0.1);
+    flex-wrap: wrap;
+}

@@ -11,11 +11,10 @@ import { DateFormattingService } from '../../../helpers/date-formatting.service'
 export class AddEditUserDialogComponent implements OnInit {
   @ViewChild(FormGroupDirective) formRef!: FormGroupDirective;
   registrationValid = signal(false);
-  actionType: WritableSignal<'update' | 'create'> = signal('create');
+  actionType: WritableSignal<'edit' | 'create'> = signal('create');
 
   registrationFormGroup = this.fb.group({
-    firstName: this.fb.control('', [Validators.required, Validators.minLength(4)]),
-    lastName: this.fb.control('', [Validators.required, Validators.minLength(4)]),
+    username: this.fb.control('', [Validators.required, Validators.minLength(4)]),
     birthdate: this.fb.control('', [Validators.required]),
     email: this.fb.control('', [Validators.required, Validators.email]),
     password: this.fb.control('', [Validators.required, 
@@ -26,17 +25,16 @@ export class AddEditUserDialogComponent implements OnInit {
   });
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {type: 'update' | 'create', user: any},
+    @Inject(MAT_DIALOG_DATA) public data: {type: 'edit' | 'create', user: any},
     private refDialog: MatDialogRef<AddEditUserDialogComponent>,
     private fb: FormBuilder,
     private dateFormattingService: DateFormattingService
   ) { 
     effect(() => {
-      if (this.actionType() === 'update') {
+      if (this.actionType() === 'edit') {
         this.password.clearValidators();
         this.password.updateValueAndValidity();
-        this.firstName.setValue(this.data.user.first_name);
-        this.lastName.setValue(this.data.user.last_name);
+        this.username.setValue(this.data.user.username);
         this.email.setValue(this.data.user.email);
         this.role.setValue(String(this.data.user.role.id));
         this.gender.setValue(this.data.user.gender);
@@ -50,12 +48,8 @@ export class AddEditUserDialogComponent implements OnInit {
       this.actionType.set(this.data.type);
   }  
 
-  get firstName() {
-    return this.registrationFormGroup.controls.firstName;
-  }
-
-  get lastName() {
-    return this.registrationFormGroup.controls.lastName;
+  get username() {
+    return this.registrationFormGroup.controls.username;
   }
     
   get email() {
@@ -85,8 +79,7 @@ export class AddEditUserDialogComponent implements OnInit {
   addUser() {
 
     const newUser: any = {
-      first_name: this.firstName.value,
-      last_name: this.lastName.value,
+      username: this.username.value,
       email: this.email.value,
       phone_number: this.phoneNumber.value,
       password: this.password.value,
@@ -100,8 +93,7 @@ export class AddEditUserDialogComponent implements OnInit {
 
   updateUser() {
     const updatedUser: any = {
-      first_name: this.firstName.value,
-      last_name: this.lastName.value,
+      username: this.username.value,
       email: this.email.value,
       phone_number: this.phoneNumber.value,
       gender: this.gender.value,

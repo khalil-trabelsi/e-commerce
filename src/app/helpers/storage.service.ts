@@ -30,6 +30,11 @@ export class StorageService {
     return {}
   }
 
+  getCurrentUsername() {
+    const user = JSON.parse(window.sessionStorage.getItem(USER_KEY)!);
+    return user.username ? user.username : `${user.first_name} ${user.last_name}`
+  }
+
   saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token)

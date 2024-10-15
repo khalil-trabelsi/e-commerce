@@ -9,6 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AgGridModule } from 'ag-grid-angular';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatDialogModule,
     AgGridModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ],
   exports: [
     CommonModule,
@@ -35,7 +37,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatDialogModule,
     AgGridModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ]
 })
 export class AgMaterialModule { }

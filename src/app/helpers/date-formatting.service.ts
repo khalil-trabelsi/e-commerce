@@ -1,16 +1,18 @@
 import { formatDate } from '@angular/common';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DateFormattingService {
 
-  constructor() { }
+  constructor(
+    @Inject(LOCALE_ID) private  locale: string,
+  ) { }
 
 
   formatDateToTimestampString(date: Date) {
-    return formatDate(date, 'yyyy-MM-dd/hh-mm-ss', 'en-US')
+    return formatDate(date, 'yyyy-MM-dd hh:mm:ss', this.locale)
   }
 
   

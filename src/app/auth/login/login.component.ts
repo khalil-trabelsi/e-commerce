@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../helpers/storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   private history!:any;
   isLoggedIn = this.storageService.isLoggedIn()
   hide = true
@@ -41,13 +43,17 @@ export class LoginComponent implements OnInit {
         response => {
           this.storageService.saveUser(response.user);
           this.storageService.saveToken(response.token)
-          this.history = this.history ? this.history : response.user.role.label.includes('ADMIN') ? '/admin/dashboard' : '/profile'
-          this.router.navigate([this.history]);
-
+          this.history = this.history ? this.history : response.user?.role?.label.includes('ADMIN') ? '/admin/dashboard' : '/profile'
+          this.router.navigate(['/admin/dashboard']);
         }
       )
     } else {
       alert('Invalid inputs !')
     }
+  }
+
+  ngOnDestroy(): void {
+      this.destroy$.next();
+      this.destroy$.complete();
   }
 }

@@ -15,11 +15,11 @@ export class UsersService {
   constructor(private httpClient: HttpClient) { }
 
   getAllUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`${this.api}/users`);
+    return this.httpClient.get<User[]>(`${this.api}/administrators`);
   }
 
   deleteUser(userId: number) {
-    return this.httpClient.delete(`${this.api}/users/${userId}`)
+    return this.httpClient.delete(`${this.api}/administrators/${userId}`)
   }
 
 
@@ -28,6 +28,11 @@ export class UsersService {
   }
 
   updateUser(user: User, userId: number): Observable<User> {
-    return this.httpClient.put<User>(`${this.api}/users/${userId}`, user)
+    return this.httpClient.put<User>(`${this.api}/administrators/${userId}`, user)
+  }
+
+  addUser(user: User) {
+    return this.httpClient.post<User>(`${this.api}/administrators`, user)
+
   }
 }

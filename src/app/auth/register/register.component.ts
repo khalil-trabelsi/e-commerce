@@ -1,16 +1,19 @@
-import { Component, signal, ViewChild } from '@angular/core';
+import { Component, OnDestroy, signal, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { NotificationService } from '../../helpers/notification.service';
 import { DateFormattingService } from '../../helpers/date-formatting.service';
+import { Subject, switchMap, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
-  
+export class RegisterComponent implements OnDestroy {
+  private destroy$ = new Subject<void>();
+
   @ViewChild(FormGroupDirective) formRef!: FormGroupDirective;
   registrationValid = signal(false);
 
@@ -29,7 +32,8 @@ export class RegisterComponent {
     private authService: AuthService,
     private fb: FormBuilder,
     private notificationService: NotificationService,
-    private dateFormatteingService: DateFormattingService
+    private dateFormatteingService: DateFormattingService,
+    private router: Router
   ) { }
 
   saveUser() {
@@ -41,11 +45,15 @@ export class RegisterComponent {
       password: this.registrationFormGroup.controls.password.value,
       gender: this.registrationFormGroup.controls.gender.value,
       phone_number: this.registrationFormGroup.controls.phoneNumber.value,
+      role_id: 2
     }
-    this.authService.register(user).subscribe(val => {
+    this.authService.register(user).pipe(takeUntil(this.destroy$)).pipe(
+      switchMap(_ => this.authService.signin({email: user.email ?? '', password: user.password ?? ''}))
+    ).subscribe(val => {
       if (val) {
         this.notificationService.notify('Votre compte a été bien crée', 'ok');
         this.formRef.resetForm();
+        this.router.navigate(['/register/confirmation'])
       }
     });
   }
@@ -74,5 +82,10 @@ export class RegisterComponent {
 
   get gender() {
     return this.registrationFormGroup.controls.gender;
+  }
+
+  ngOnDestroy(): void {
+      this.destroy$.next();
+      this.destroy$.complete();
   }
 }

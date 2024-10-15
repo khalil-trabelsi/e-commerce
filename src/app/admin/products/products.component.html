@@ -1,0 +1,19 @@
+<section class="dash-container">
+    <div class="dash-title">
+        <h1>Suppliers</h1>
+    </div>
+    <button class="btn-add btn-primary" (click)="addProduct()">
+        <span class="material-symbols-outlined">
+            add
+        </span>
+            New Product
+    </button>
+    <ag-grid-angular 
+        [rowData]="products"
+        [columnDefs]="colDefs"
+        [autoSizeStrategy]="autoSizeStrategy"
+        pagination="{{true}}"
+        paginationAutoPageSize="{{true}}"
+        style="height: calc(100vh - 300px);"
+        class="ag-theme-quartz"/>
+</section>

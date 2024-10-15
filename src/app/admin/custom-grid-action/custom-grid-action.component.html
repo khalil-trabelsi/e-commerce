@@ -1,11 +1,29 @@
-<button class="btn btn-blue" (click)="edit()" matTooltip="edit">
-    <span class="material-symbols-outlined icon">
-        edit
-    </span>
-</button>
+<div style="display: flex; align-items: true;padding-top: 5px;">
+    @if (parentComponent() === 'usersComponent') {
+        <button class="btn btn-blue" (click)="editUser()" matTooltip="edit">
+            <span class="material-symbols-outlined icon">
+                edit
+            </span>
+        </button>
+        
+        <button class="btn btn-danger" (click)="deleteUser()" matTooltip="delete">
+            <span class="material-symbols-outlined icon">
+                delete
+            </span>
+        </button>
+    } @else if (parentComponent() === 'suppliersComponent') {
+        <button class="btn btn-blue" (click)="editSupplier()" matTooltip="edit">
+            <span class="material-symbols-outlined icon">
+                edit
+            </span>
+        </button>
+        
+        <button class="btn btn-danger" (click)="deleteSupplier()" matTooltip="delete">
+            <span class="material-symbols-outlined icon">
+                delete
+            </span>
+        </button>
+    }
 
-<button class="btn btn-danger" (click)="delete()" matTooltip="delete">
-    <span class="material-symbols-outlined icon">
-        delete
-    </span>
-</button>
+</div>
+

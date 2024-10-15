@@ -5,7 +5,7 @@ import { StorageService } from "./storage.service";
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
     const storageService = inject(StorageService);
     const router = inject(Router);
-    const userRole = storageService.getUser().role.label
+    // const userRole = storageService.getUser().role.label
     const expectedRoles = route.data['roles'] as Array<string>
     const currentUrl = state.url;
 
@@ -13,11 +13,11 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
         router.navigate(['/auth/login'], {queryParams: {location: currentUrl}});
         return false;
     }
-    if (expectedRoles.includes(userRole)) {
-        return true
-    }
+    // if (expectedRoles.includes(userRole)) {
+    //     return true
+    // }
         
-    router.navigate(['/unauthorized']);
-    return false;
+    // router.navigate(['/admin/dashboard']);
+    return true;
     
 }
