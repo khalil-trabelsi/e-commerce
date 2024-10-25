@@ -11,7 +11,8 @@ import { Brand } from '../../models/brands';
 export class AddEditBrandDialogComponent implements OnInit {
   actionType: 'create' | 'edit' = 'create';
   brandFormGroup!: FormGroup;
-
+  selectedImage!: File | null;
+  selectedImageUrl!: string | ArrayBuffer | null;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {type: 'cerate' | 'edit', brand: Brand},
     private fb: FormBuilder,
@@ -37,13 +38,39 @@ export class AddEditBrandDialogComponent implements OnInit {
   }
 
   addBrand() {
-    this.dialogRef.close(
-      this.brandFormGroup.value
-    )
+    const formData = new FormData();
+    if (this.selectedImage) {
+      formData.append('file', this.selectedImage, this.selectedImage.name)
+      formData.append('alt', this.description.value)
+      this.dialogRef.close(
+        {brand: this.brandFormGroup.value, image: formData}
+      )
+    }
+
   }
 
-  editBrand() {
+  editBrand() { 
 
   }
 
+  onFileSelected(event: Event) {
+    const inputElt = event.target as HTMLInputElement;
+    if (inputElt?.files && inputElt.files.length > 0) {
+      this.selectedImage = inputElt.files[0];
+
+      const reader = new FileReader();
+
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        this.selectedImageUrl = (e.target?.result)!;
+      }
+
+      reader.readAsDataURL(this.selectedImage)
+    }
+    console.log(this.selectedImageUrl)
+  }
+
+  deleteImage(): void {
+    this.selectedImageUrl = null;
+    this.selectedImage = null;
+  }
 }

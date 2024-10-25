@@ -13,6 +13,10 @@ import { ConfirmationEmailNotificationComponent } from './auth/confirmation-emai
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
+  },
+  {
     path: 'auth/login',
     component: LoginComponent,
     canActivate: [loginGuard]
@@ -39,10 +43,6 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canMatch: [authGuard],
     data: {roles: ['ADMIN', 'MODERATOR']},
-  },
-  {
-    path: 'client',
-    loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
   },
   {
     path: 'unauthorized',

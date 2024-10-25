@@ -1,0 +1,39 @@
+    <app-carousel />
+    <section class="splide-wrapper">
+        <div class="banner-header">
+            <h2>Notre sélection pour vous</h2>
+        </div>
+        <div class="splide">
+            <ul class="splide-list">
+                <li class="splide_list" *ngFor="let product of products()">
+                    <div class="card">
+                        <a [routerLink]="['/ref', product.id]"  class="card-item">
+                                @for (productImage of product.images; track $index) {
+                                    @if (productImage.main_image) {
+                                        <div class="card-image">
+                                            <img class="card-item-img" [src]="productImage.image_url" alt="">
+                                        </div>
+                                    }
+                                }
+        
+                                <h5 class="card-item-title">{{product.name}}</h5>
+                        </a>
+                        <div class="card-footer">
+                            <p class="price-value">{{product.price}} €</p>
+                            <button class="btn btn-primary">
+                                <span class="material-symbols-outlined">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="media-slider">
+        <ul class="media-slider-list">
+            <li *ngFor="let brand of brands()" class="menu-slider-item">
+                <a href="" ><img [src]="brand.image.image_url" alt="{{brand.image.image_alt}}"></a>
+            </li>
+        </ul>
+    </section>

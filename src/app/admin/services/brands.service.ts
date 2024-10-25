@@ -28,4 +28,8 @@ export class BrandsService {
   refreshBrandData() {
     this.refreshBrandsSubject.next()
   }
+
+  uploadImage(brand_id: number, file: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.apiUrl}/brands/${brand_id}/upload`, file)
+  }
 }

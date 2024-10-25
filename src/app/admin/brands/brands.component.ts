@@ -13,7 +13,10 @@ import { Brand } from '../models/brands';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditBrandDialogComponent } from '../dialogs/add-edit-brand-dialog/add-edit-brand-dialog.component';
 import { NotificationService } from '../../helpers/notification.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
+
+
+
 
 @Component({
   selector: 'app-brands',
@@ -39,6 +42,14 @@ export class BrandsComponent implements OnInit, OnDestroy {
     {
       headerName: 'Name',
       field: 'name'
+    },
+    {
+      headerName: 'Logo',
+      field: 'image',
+      cellRenderer: (p: any) => {
+        console.log(p.value)
+        return `<img src="${p.value.image_url}"  width="70" />`
+      }
     },
     {
       headerName: 'Description',
@@ -88,9 +99,9 @@ export class BrandsComponent implements OnInit, OnDestroy {
     })
 
     dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe(
-      brand => {
-        if (brand) {
-          this.brandService.addBrand(brand).pipe(takeUntil(this.destroy$)).subscribe(
+      result => {
+        if (result) {
+          this.brandService.addBrand(result.brand).pipe(switchMap(brand => this.brandService.uploadImage(brand.id!, result.image)),takeUntil(this.destroy$)).subscribe(
             _ => {
               this.brandService.refreshBrandData();
               this.notificationService.notify('Brand added successfully');

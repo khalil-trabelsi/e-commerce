@@ -30,4 +30,8 @@ export class ProductsService {
   refreshProducts() {
     this.refreshProductsData$$.next();
   }
+
+  getProductById(productId: number | string): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/products/${productId}`)
+  }
 }

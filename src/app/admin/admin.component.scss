@@ -91,23 +91,6 @@
     }
 }
 
-
-.search-input {
-    padding: 8px 32px;
-    outline: none;
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT48L3N2Zz4=");
-    background-repeat: no-repeat;
-    background-size: 1rem;
-    background-position: left 0.65rem center;
-    width: 375px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-}
-
-.search-input:focus {
-    border-color: #4896FE; 
-}
-
 .menu {
     display: flex;
     flex-direction: column;

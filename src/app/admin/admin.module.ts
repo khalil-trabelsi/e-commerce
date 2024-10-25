@@ -21,6 +21,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { AddEditProductDialogComponent } from './dialogs/add-edit-product-dialog/add-edit-product-dialog.component';
 import { StockMovementsComponent } from './stock-movements/stock-movements.component';
 import { AddEditStockEntryComponent } from './dialogs/add-edit-stock-entry/add-edit-stock-entry.component';
+import { CollectionComponent } from './collection/collection.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { AddEditStockEntryComponent } from './dialogs/add-edit-stock-entry/add-e
     CustomersComponent,
     AddEditProductDialogComponent,
     StockMovementsComponent,
-    AddEditStockEntryComponent
+    AddEditStockEntryComponent,
+    CollectionComponent
 
   ],
   imports: [

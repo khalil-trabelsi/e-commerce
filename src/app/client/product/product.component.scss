@@ -1,0 +1,149 @@
+.product-content {
+    background-color: #fff;
+    padding: 1.875rem 2.67rem;
+    border-radius: 0.8rem;
+}
+
+.breadcrumb {
+    margin-bottom: 1.5rem;
+
+    .breadcrumb-nav {
+        display: flex;
+        align-items: center;
+
+        .breadcrumb-item {
+            display: flex;
+
+            .breadcrumb-item-link {
+                color: #434748;
+                text-decoration: underline;
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+.breadcrumb-item-separator::before {
+    content: '>';
+    margin: 0 1rem;
+}
+
+
+.product-sticky {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    // position: sticky;
+    top: 5rem;
+    left: 0;
+    z-index: 9;
+
+    .product-label {
+        margin: 0;
+    }
+
+    .product-ref {
+        color: #757575;
+        font-size: .75rem;
+        line-height: .875rem;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.g-col-xl-6 {
+    grid-column: auto / span 6;
+}
+
+
+.g-col-xl-5 {
+    grid-column: auto / span 5;
+}
+
+.g-start-xl-8 {
+    grid-column-start: 8;
+}
+
+.product-viewer {
+    margin-top: 25px;
+    display: flex;
+    gap: 3.5rem;
+    min-height: 400px;
+    .product-viewer-list {
+        display: flex;
+        flex-direction: column;
+        
+        .product-viewer-img {
+            margin-bottom: 15px;
+            display: block;
+            width: 65px;
+            border-radius: 6px;
+            padding: 0.5rem;
+            &:hover {
+                box-shadow: 0 2px 8px rgba(0,0,0, 0.3);
+            }
+
+            img {
+                width: 100%;
+                border-radius: 6px;
+
+            }
+        }
+    }
+}
+
+.product-viewer-main-img {
+    flex-grow: 1;
+    /* align-self: center; */
+    display: flex;
+    justify-content: center;
+    img {
+        width: 350px;
+        height: 80%;
+    }
+}
+
+
+.active {
+    border: 1px solid #111 ;
+}
+
+
+.product-price {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.product-features-container {
+    list-style-type: disc;
+    padding-left: 1.2rem;
+}
+
+.form-control {
+    width: 3.5rem;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.form-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+
+    .btn {
+        padding: 10px 15px;
+    }
+}
+.form-control-label {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.user-review {
+    margin-top: 1rem;
+    text-decoration: underline;
+    cursor: pointer;
+}

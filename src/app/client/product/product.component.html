@@ -1,0 +1,77 @@
+
+<nav class="breadcrumb">
+    <ul class="breadcrumb-nav">
+        <li class="breadcrumb-item">
+            <a href="/" class="breadcrumb-item-link">Acceuil</a>
+        </li>
+        <li class="breadcrumb-item">
+            <span class="breadcrumb-item-separator"></span>
+            <a href="/" class="breadcrumb-item-link">{{product.category.name}}</a>
+        </li>
+    </ul>
+</nav>
+
+<article class="product-content" *ngIf="product">
+
+    <section class="grid product-summary">
+        <div class="g-col-xl-6">
+            <div class="product-sticky">
+                <h2 class="product-label">{{product.name}}</h2>
+                <span class="product-ref">Réf &nbsp;{{product.id}} </span>
+            </div>   
+            <div class="product-viewer">
+                <div class="product-viewer-list">
+                    @for (image of product.images; track $index) {
+                        <div class="product-viewer-img"
+                            (click)="selectProductImage($index)"
+                            [ngClass]="{'active': selectedImageIndex === $index}">
+                            <img  [src]="image.image_url" alt="">
+                        </div>
+                    }
+                
+                </div>
+                <div class="product-viewer-main-img">
+                    <img [src]="selectedImage" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="g-col-xl-5 g-start-xl-8">
+            <p class="product-price">{{product.price}} €</p>
+
+            <aside class="product-features">
+                <h4>Caractéristiques</h4>
+                <ul class="product-features-container">
+                    <li class="product-feature-item" *ngFor="let feature of product.features">
+                        {{feature.label}}
+                    </li>
+                </ul>
+            </aside>
+
+            <div class="add-cart">
+                <form action="">
+                    <div class="form-group">
+                        <label for="quantity" class="form-control-label">Quantité</label>
+                        <button class="btn">-</button>
+                        <input type="number"  class="form-control" name="quantity" min="0" max="100">
+                        <button class="btn">+</button>
+                    </div>
+                    <button class="btn btn-danger" style="display: flex; align-items: center; justify-content: center; width: 225px; font-size: 1rem;">
+                        <span class="material-symbols-outlined">local_mall</span>
+                        &nbsp; 
+                        <span>Ajouter au panier</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="user-review">
+                <a><span class="material-symbols-outlined">
+                    draw
+                    </span>
+                    Donnez votre avis
+                </a>
+            </div>
+        </div>
+       
+    </section>
+</article>

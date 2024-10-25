@@ -4,8 +4,30 @@
     --color-success: #28a745;
     --color-warning: #ffc107;
     --color-secondary: #6c757d;
-    --color-purple: #512dab;
+    --color-purple: #593774;
     --color-red: #721c24;
+    --primary-50: #f0eaf7;
+    --primary-100: #e1d5ef;
+    --primary-200: #c3abdf;
+    --primary-300: #a482d0;
+    --primary-400: #8658c0;
+    --primary-500: #682eb0;
+    --primary-600: #53258d;
+    --primary-700: #3e1c6a;
+    --primary-800: #2a1246;
+    --primary-900: #150923;
+    --tertiary-50: #f0f2ff;
+    --tertiary-100: #e1e4ff;
+    --tertiary-200: #c3caff;
+    --tertiary-300: #a6afff;
+    --tertiary-400: #8895ff;
+    --tertiary-500: #6a7aff;
+    --tertiary-600: #5563d9;
+    --tertiary-700: #404cb3;
+    --tertiary-800: #2a358d;
+    --tertiary-900: #151e67;
+    --white: #fff;
+    --black: #000;
 }
 
 * {
@@ -18,12 +40,17 @@ ul {
     list-style: none;
 }
 
+a {
+    text-decoration: none;
+}
+
 html, body { height: 100%; }
 body { 
     font-family: Helvetica, Roboto, Arial, Tahoma, sans-serif;
     color: #333;
     font-size: 12px;
     line-height: 1.42857143;
+    background-color: #f5f5f5;
 
  }
  .auth-container {
@@ -200,7 +227,8 @@ body {
 
 .btn-primary {
     background-color: var(--color-purple) !important;
-    color: #ccc !important;
+    color: #fff !important;
+
 }
 
 .btn-blue {
@@ -355,6 +383,11 @@ body {
 
     padding: 15px 0 18px 15px;
 
+}
+
+.client-container {
+    padding-right: 140px;
+    padding-left: 140px;
 }
 
 
@@ -582,6 +615,23 @@ body {
     color: #fff;
 }
 
+.search-input {
+    padding: 8px 32px;
+    outline: none;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ij48L2NpcmNsZT48bGluZSB4MT0iMjEiIHkxPSIyMSIgeDI9IjE2LjY1IiB5Mj0iMTYuNjUiPjwvbGluZT48L3N2Zz4=");
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    background-position: left 0.65rem center;
+    width: 375px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+}
+
+.search-input:focus {
+    border-color: #4896FE; 
+}
+
+
 @media screen and (min-width: 992px) {
     .table-container {
         td:not(:first-of-type) {
@@ -660,4 +710,13 @@ body {
     --ag-header-background-color: #023047;
     --ag-header-cell-hover-background-color: rgb(80, 40, 140);
     --ag-header-cell-moving-background-color: rgb(80, 40, 140);
+}
+
+.file-upload {
+    display: none;
+}
+
+
+.fz-45 {
+    font-size: 45px;
 }

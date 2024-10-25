@@ -45,7 +45,7 @@ export class AutocompleteMultiselectComponent implements OnInit, OnDestroy {
           this.selectAll.setValue(false)
         }
         
-        this.toolTip = this.filteredOptions().filter(item => this.selectedOptionsControl.value && this.selectedOptionsControl.value.includes(item[this.optionId()]) )
+        this.toolTip = this.filteredOptions().filter(item => this.selectedOptionsControl.value && Array.isArray(this.selectedOptionsControl.value) && this.selectedOptionsControl.value.includes(item[this.optionId()]) )
         .map(item => item[this.key()]).join(', ');
         
         this.selectedOptions.emit({selectedOptions: data, type: this.type()});

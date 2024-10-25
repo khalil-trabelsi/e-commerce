@@ -1,3 +1,61 @@
-.file-upload {
-    display: none;
+.file-uploaded {
+    display: flex;
+    gap: 25px;
+    align-items: center;
 }
+
+.uploaded-images {
+    display: flex;
+    gap: 15px;
+}
+
+.uploaded-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px dashed #777;
+    position: relative;
+
+    .full-img {
+        display: flex;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    img {
+        opacity: 0.5;
+    }
+    &:hover, &.active {
+        
+        img {
+            opacity: 0.8;
+        }
+
+        .full-img {
+            opacity: 1;
+        }
+    }
+}
+
+.custom-control {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.uploaded-item.active {
+    border: 2px solid #4caf50; 
+    .full-img {
+        color: #4caf50;
+        font-weight: bold;
+    }
+  }

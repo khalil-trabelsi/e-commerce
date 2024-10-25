@@ -1,0 +1,40 @@
+<section class="dash-container">
+    <div class="dash-title">
+        <h1>Collections</h1>
+    </div>
+    <div style="display: flex; gap: 25px;">
+        <ag-grid-angular 
+        [rowData]="collections"
+        [columnDefs]="colDefs"
+        [autoSizeStrategy]="autoSizeStrategy"
+        pagination="{{true}}"
+        paginationAutoPageSize="{{true}}"
+        style="height: calc(100vh - 300px); width: 650px; flex-grow: 2;"
+        class="ag-theme-quartz" />
+        <div class="embedded-creation-form">
+            <form [formGroup]="addCollectionForm" (ngSubmit)="addCollection()">
+                <div class="">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input 
+                type="text" name="name" 
+                class="form-control"
+                autocomplete="off"
+                formControlName="name"    
+                >
+            </div>
+            <div class="form-group">
+                <label for="description">description</label>
+                <textarea name="description" id="" class="form-control" formControlName="description"></textarea>
+            </div>
+
+        </div>
+                <button type="submit" mat-flat-button class="btn btn-primary">
+                        Submit
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+</section>

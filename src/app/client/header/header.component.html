@@ -1,0 +1,100 @@
+<header class="client-header">
+    <div class="client-header-container">
+        <div class="client-header-top">
+            <div class="client-header-logo">
+                <p>
+                    <a href="#">
+                        <img src="../../../assets/logo.png" height="78"  alt="">
+                    </a>
+                </p>
+            </div>
+            <div class="client-menu">
+                <div class="search-bar">
+                    <!-- <app-autocomplete-multiselect
+                    type="categories"
+                    key="name"
+                    optionId="id"
+                    [multiple]="multiple"
+                    label="categories"
+                    [options]="categories()"
+                    (selectedOptions)="getSelectedOptions($event)">
+                </app-autocomplete-multiselect> -->
+                <input type="text" class="search-input" placeholder="Search for items...">
+                </div>
+                <div class="client-menu-nav">
+                    <ul>
+                        <li>
+                            <a href="">
+                                <span class="material-symbols-outlined">
+                                    favorite
+                                </span>
+                                <span>Favories</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <span class="material-symbols-outlined">
+                                    shopping_cart
+                                </span>
+                                <span>Panier</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/auth/login">
+                                <span class="material-symbols-outlined">
+                                    person
+                                </span>
+                                <span>Se connecter</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="main-menu">
+            <ul class="main-menu-list">
+                <li class="menu-button main-menu-item" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+                    <button type="button" class="menu-btn" style="display: inline-flex; align-items: center; font-weight: bold; font-size: 18px; cursor: pointer; background-color: transparent">
+                        <span class="material-symbols-outlined">
+                            menu
+                        </span>
+                        <span>Produits</span>
+                    </button>
+                  <ul class="sub-menu" [ngClass]="{'show': showSubMenu}">
+                    <li *ngFor="let category of categoriesAggregated;" class="sub-menu-item">
+                        <a class="sub-menu-nav-link">{{category.name}}</a>
+                        <ul class="level-2">
+                            <li *ngFor="let subCategory of category.children" class="level-2-item">
+                                <a class="level-2-nav-link">{{subCategory.name}}</a>
+                                <ul class="level-3">
+                                    <li *ngFor="let child of subCategory.children" class="level-3-item">
+                                        <a href="" class="level-3-nav-link">{{child.name}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li class="main-menu-item">
+                    <a class="nav-link" href="#">Meilleures ventes</a>
+                </li>
+                <li class="main-menu-item">
+                    <a class="nav-link" href="#">Bon plan</a>
+                </li>
+                <li class="main-menu-item">
+                    <a class="nav-link" href="#">Nouveautés</a>
+                </li>
+                <li class="main-menu-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="main-menu-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="main-menu-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

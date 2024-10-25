@@ -33,7 +33,7 @@ import { ConfirmationEmailNotificationComponent } from './auth/confirmation-emai
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ErrorDialogComponent,
+    ErrorDialogComponent, 
     SpinnerComponent,
     ProfileComponent,
     CustomGridActionComponent,
@@ -46,12 +46,12 @@ import { ConfirmationEmailNotificationComponent } from './auth/confirmation-emai
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatMomentDateModule,
     SharedModule,
+    AppRoutingModule,
   ],
   providers: [
     provideAnimationsAsync(),

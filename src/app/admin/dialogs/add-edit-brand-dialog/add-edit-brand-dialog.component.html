@@ -26,7 +26,26 @@
                 <label for="description">description</label>
                 <textarea name="description" id=""  formControlName="description" class="form-control"></textarea>
             </div>
-
+            <div class="form-group">
+                <label for="files">Product images</label>
+                <input type="file" name="files" class="file-upload" (change)="onFileSelected($event)" #fileUpload accept="image/*">
+                <div class="file-uploaded">
+                    <button type="button" mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <div *ngIf="selectedImage"  style="font-size: 14px;">
+                        <img [src]="selectedImageUrl" alt="" width="120">
+                        <div style="display: flex; gap: 15px; ">
+                            <p>{{selectedImage.name}}</p>
+                            <button class="btn btn-danger" (click)="deleteImage()">
+                                <span class="material-symbols-outlined">
+                                    close
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form> 
 

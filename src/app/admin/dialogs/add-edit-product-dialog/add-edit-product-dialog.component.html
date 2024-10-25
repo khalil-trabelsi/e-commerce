@@ -17,22 +17,8 @@
                 <label for="tva">TVA</label>
                 <input type="number" name="tva" class="form-control" formControlName="tva">
             </div>
-            <div class="form-group">
-                <label for="files">Product images</label>
-                <input type="file" name="files" class="file-upload" (change)="onFileSelected($event)" #fileUpload multiple accept="image/*">
-                <div class="file-uploaded">
-                    <button type="button" mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
-                        <mat-icon>attach_file</mat-icon>
-                    </button>
-                    <div style="font-size: 14px;">
-                        @for (imageName of selectedImagesName; track $index) {
-                            <p>{{imageName}}</p>
-                        }
-                    </div>
-                </div>
-
-            </div>
-            <app-autocomplete-multiselect
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+                <app-autocomplete-multiselect
                 type="brands"
                 key="name"
                 optionId="id"
@@ -42,22 +28,66 @@
                 (selectedOptions)="getSelectedOptions($event)">
             </app-autocomplete-multiselect>
             <app-autocomplete-multiselect
+                type="collections"
+                key="name"
+                optionId="id"
+                [multiple]="multiple"
+                label="Collections"
+                [options]="collections()"
+                (selectedOptions)="getSelectedOptions($event)">
+            </app-autocomplete-multiselect>
+            </div>
+            <app-autocomplete-multiselect
                 type="categories"
                 key="name"
                 optionId="id"
                 [multiple]="multiple"
-                label="categories"
+                label="Categories"
                 [options]="categories()"
                 (selectedOptions)="getSelectedOptions($event)">
             </app-autocomplete-multiselect>
-            <div class="form-group description-control">
-                <label for="description">Description</label>
-                <textarea type="text" placeholder="Description" name="description" 
-                class="form-control"
-                autocomplete="off"
-                formControlName="description"
-                >
-            </textarea>
+      
+            <div  formArrayName="features">
+                <div *ngFor="let feature of features.controls; let i = index;">
+                    <div class="form-group" [formGroupName]="i" style="display: flex; align-items: center; gap: 14px; width: 80%;">
+                        <input type="text" placeholder="Product feature" name="feature" 
+                            class="form-control"
+                            autocomplete="off"
+                            formControlName="label"
+                        >
+           
+                        <button mat-icon-button class="btn btn-danger" (click)="removeFeature(i)">x</button>
+                    </div>               
+                </div>
+                <button class="btn btn-secondary" (click)="addFeature()">Add feature</button>
+            </div>
+            <div class="form-group">
+                <label for="files">Images</label>
+                <input type="file" name="files" class="file-upload" (change)="onFileSelected($event)" #fileUpload multiple accept="image/*">
+                <div class="file-uploaded">
+                    <button type="button" mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="selectedImages">
+                <p>Please select the main image!</p>
+                <ul class="uploaded-images" >
+                    @for (image of selectedImageUrl; track $index) {
+    
+                        <li class="uploaded-item" [ngClass]="{'active': main_image.value === selectedImagesName[$index]}">
+                            <!-- <span>{{selectedImagesName[$index]}}</span> -->
+                            <input [id]="selectedImages[$index]" class="custom-control" type="radio" 
+                                   [value]="selectedImagesName[$index]" name="main_image" formControlName="main_image" #mainImageCheck>
+                            <label [for]="selectedImagesName[$index]">
+                                <img [src]="image" alt="" width="85">
+                                <span class="material-symbols-outlined full-img" (click)="mainImageCheck.click()">
+                                    check_circle
+                                </span>
+                            </label>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </form> 

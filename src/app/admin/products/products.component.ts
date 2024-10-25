@@ -102,7 +102,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   addProduct() {
     this.dialog.open(
       AddEditProductDialogComponent, {
-        width: '45vw',
+        width: '55vw',
         minHeight: '22vh'
       }
     )
