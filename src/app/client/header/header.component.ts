@@ -1,8 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { CategoriesService } from '../../admin/services/categories.service';
-import { ClientService } from '../services/client.service';
+import { CategoriesService } from '../../services/categories.service';
+import { ClientService } from '../../services/client.service';
 import { Subject, takeUntil } from 'rxjs';
+import { CartService } from '../../services/cart.service';
+import { StorageService } from '../../helpers/storage.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,10 +19,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   categoriesAggregated: any[] = []
 
   showSubMenu = false;
+  cartItemsNumber = this.cartService.cartItemsTotal;
+
+  isLoggedIn = this.storageService.isLoggedIn()
 
   constructor(
     private categoriesService: CategoriesService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private cartService: CartService,
+    private storageService: StorageService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +57,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   
   onMouseLeave() {
     this.showSubMenu = false;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

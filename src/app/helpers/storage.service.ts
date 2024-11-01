@@ -35,6 +35,11 @@ export class StorageService {
     return user.username ? user.username : `${user.first_name} ${user.last_name}`
   }
 
+  getCurrentUserEmail() {
+    const user = JSON.parse(window.sessionStorage.getItem(USER_KEY)!);
+    return user ? user.email : '';
+  }
+
   saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token)
@@ -54,14 +59,7 @@ export class StorageService {
   }
 
   isLoggedIn(): boolean {
-    const user = window.sessionStorage.getItem(USER_KEY);
-
-    if (user) {
-      return true;
-    }
-
-    return false;
+    return window.sessionStorage.getItem(USER_KEY) ? true : false;
   }
-
   
 }

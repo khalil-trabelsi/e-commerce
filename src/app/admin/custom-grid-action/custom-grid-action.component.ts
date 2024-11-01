@@ -7,7 +7,7 @@ import { UsersService } from '../../services/users.service';
 import { AddEditUserDialogComponent } from '../dialogs/add-edit-user-dialog/add-edit-user-dialog.component';
 import { NotificationService } from '../../helpers/notification.service';
 import { AddEditSupplierDialogComponent } from '../dialogs/add-edit-supplier-dialog/add-edit-supplier-dialog.component';
-import { SuppliersService } from '../services/suppliers.service';
+import { SuppliersService } from '../../services/suppliers.service';
 import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({

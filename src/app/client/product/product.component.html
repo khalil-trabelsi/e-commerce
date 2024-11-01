@@ -1,5 +1,5 @@
 
-<nav class="breadcrumb">
+<nav class="breadcrumb" *ngIf="product">
     <ul class="breadcrumb-nav">
         <li class="breadcrumb-item">
             <a href="/" class="breadcrumb-item-link">Acceuil</a>
@@ -49,14 +49,17 @@
             </aside>
 
             <div class="add-cart">
-                <form action="">
+                <form>
                     <div class="form-group">
                         <label for="quantity" class="form-control-label">Quantité</label>
-                        <button class="btn">-</button>
-                        <input type="number"  class="form-control" name="quantity" min="0" max="100">
-                        <button class="btn">+</button>
+                        <button class="btn" type="button">-</button>
+                        <input type="number"  class="form-control" [formControl]="quantity" name="quantity" min="1" max="10">
+                        <button class="btn" type="button">+</button>
                     </div>
-                    <button class="btn btn-danger" style="display: flex; align-items: center; justify-content: center; width: 225px; font-size: 1rem;">
+                    <button type="button" class="btn btn-danger" 
+                            style="display: flex; align-items: center; justify-content: center; width: 225px; font-size: 1rem;"
+                            (click)="addToCart()"
+                            >
                         <span class="material-symbols-outlined">local_mall</span>
                         &nbsp; 
                         <span>Ajouter au panier</span>
@@ -65,7 +68,7 @@
             </div>
 
             <div class="user-review">
-                <a><span class="material-symbols-outlined">
+                <a (click)="openAddProductReviewDialog()"><span class="material-symbols-outlined">
                     draw
                     </span>
                     Donnez votre avis
@@ -75,3 +78,8 @@
        
     </section>
 </article>
+
+
+<section class="product-reviews">
+    <app-product-reviews [productId]="productId"></app-product-reviews>
+</section>

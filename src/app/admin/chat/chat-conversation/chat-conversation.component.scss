@@ -1,0 +1,40 @@
+:host {
+    flex: 1;
+}
+.input-wrapper {
+    position: relative;
+    button {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    input {
+        padding-right: 30px;
+    }
+}
+.message {
+    padding: 10px 15px;
+    width: 370px;
+    text-wrap: wrap;
+    border-radius: 1rem;
+}
+
+.sent-message {
+    align-self: flex-end;
+    background-color: #0077b6;
+    color: white;
+}
+
+.received-message {
+    background-color: #f2f3f5;
+}
+
+.chat-wrapper {
+}
+
+.discussion-row {
+    height: 500px;
+    max-height: 600px;
+    overflow-y: scroll;
+}

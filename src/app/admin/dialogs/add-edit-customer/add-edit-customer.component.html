@@ -1,0 +1,78 @@
+<h3 mat-dialog-title class="dialiog-title">
+  Create new customer
+</h3>
+<mat-dialog-content class="dialog-content">
+    <form [formGroup]="customerFormGroup">
+        <div class="form-container">
+            <div class="form-group">
+                <label for="first_name">First name</label>
+                <input type="text" placeholder="first_name" name="first_name" id="first_name" 
+                class="form-control"
+                formControlName="first_name" 
+                autocomplete="off"    
+                >
+             </div>
+             <div class="form-group">
+                <label for="last_name">Last name</label>
+                <input type="text" placeholder="last_name" name="last_name" id="last_name" 
+                class="form-control"
+                formControlName="last_name" 
+                autocomplete="off"    
+                >
+             </div>
+             <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" placeholder="user@domain.com" name="Email" class="form-control" formControlName="email"
+                >
+      
+            </div>
+            <div class="form-group">
+                <label for="password">password</label>
+                <input type="password" name="password" placeholder="*********" class="form-control" formControlName="password"    
+                >
+      
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone number</label>
+                <input type="text" name="phoneNumber" placeholder="Phone number" class="form-control" formControlName="phoneNumber"
+                >
+         
+            </div>
+            <div class="radio-group">
+                <label for="gender">Gender</label>
+                <div class="radio-group-control">
+                    <input type="radio" id="male" name="gender" formControlName="gender" value="male">
+                    <label for="male">Homme</label>
+                </div>
+                <div class="radio-group-control">
+                    <input type="radio" id="female" name="gender" formControlName="gender" value="female">
+                    <label for="male">Femme</label>
+                </div>
+             </div>
+            <mat-form-field>
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="role">
+                  <mat-option value="1">Admin</mat-option>
+                  <mat-option value="2">User</mat-option>
+                  <mat-option value="6">Moderateur</mat-option>
+                </mat-select>
+              </mat-form-field>
+             <mat-form-field>
+                <mat-label>Date de naissance</mat-label>
+                <input matInput   [matDatepicker]="datepicker" datePickerFormat="YYYY/MM/DD" formControlName="birthdate">
+                <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </form> 
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" >
+    <button 
+        mat-flat-button 
+        (click)="addCustomer()" >
+        Create
+    </button>
+
+    <button mat-dialog-close mat-flat-button class="btn btn-secondary" >Close</button>
+</mat-dialog-actions>

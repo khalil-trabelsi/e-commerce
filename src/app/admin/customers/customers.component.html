@@ -10,79 +10,57 @@
                 New Customer
         </button>
     </section>
+    <section>
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef>#</th>
+                        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="first_name">
+                        <th mat-header-cell *matHeaderCellDef>First name</th>
+                        <td mat-cell *matCellDef="let element">{{element.first_name}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="last_name">
+                        <th mat-header-cell *matHeaderCellDef>Last name</th>
+                        <td mat-cell *matCellDef="let element">{{element.last_name}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="gender">
+                        <th mat-header-cell *matHeaderCellDef>Gender</th>
+                        <td mat-cell *matCellDef="let element">{{element.gender}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let element">{{element.status}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef>Email</th>
+                        <td mat-cell *matCellDef="let element">{{element.email}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td class="d-flex align-items-center" mat-cell *matCellDef="let element">
+                            <button class="btn">
+                                <span style="font-size: 1.5rem;" class="material-symbols-outlined text-info">
+                                    edit_square
+                                </span>
+                            </button>
+                            <button class="btn">
+                                <span style="font-size: 1.5rem;" class="material-symbols-outlined text-danger">
+                                    delete
+                                </span>
+                            </button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+        
+                </table>
+                <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]"  ></mat-paginator>
+            </mat-card-content>
+        </mat-card>       
 
-    <section class="table-container" (scroll)="scroll($event)">
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Birthdate</th>
-                    <th>Email</th>
-                    <th>Created at</th>
-                    <th>Gender</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (customer of customers; track $index) {
-                    <tr>
-                        <td>{{customer.id}}</td>
-                        
-                 
-                        <td>{{customer.first_name}}</td>
-                        <td>{{customer.last_name}}</td>
-                        <td>{{customer.birth_date}}</td>
-                        <td>{{customer.email}}</td>
-                        <td>{{customer.created_at | date:'medium'}}</td>
-                        <td>{{customer.gender}}</td>
-                        <td>
-                            <p class="status" [ngClass]="customer.status === 'active' ? 'bg-success': customer.status=='inactive' ? 'bg-danger' : 'bg-warning'">{{customer.status}}</p>
-                        </td>
-                        <td style="display: flex; align-items: center; gap: 15px;">
-                            <div class="dropdown">
-                                <button class="btn btn-info" matTooltip="delete" (click)="showUserAction($index, $event)">
-                                    <span class="material-symbols-outlined icon">
-                                        more_vert
-                                    </span>
-                                </button>
-                                <ul class="action-menu" [ngClass]="{'action-menu-bottom': dropdownAtBottom(), 'action-menu-top': !dropdownAtBottom()}" *ngIf="$index===currentItemClicked() && showDropdownMenu()">
-                                    <li>
-                                        <a (click)="editCustomer(customer)">Edit</a>
-                                    </li>
-                                    @if (customer.status === 'active') {
-                                        <li>
-                                            <a (click)="deactivateCustomer(customer.id)">Deactivate</a>
-                                        </li>
-                                        <li (click)="banCustomer(customer.id)">
-                                            <a>Ban</a>
-                                        </li>
-                                    } @else if (customer.status === "inactive") {
-                                        <li>
-                                            <a (click)="activeCustomer(customer.id)">Activate</a>
-                                        </li>
-                                        <li (click)="banCustomer(customer.id)">
-                                            <a>Ban</a>
-                                        </li>
-                                    } @else {
-                                        <li>
-                                            <a (click)="activeCustomer(customer.id)">Activate</a>
-                                        </li>
-                                        <li>
-                                            <a (click)="deactivateCustomer(customer.id)">Deactivate</a>
-                                        </li>
-                                    }
-                               
-                              
-                                   
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
     </section>
 </div>

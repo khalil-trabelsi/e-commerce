@@ -1,0 +1,17 @@
+<div *ngIf="elementsOptions.clientSecret !== '' && elementsOptions.clientSecret" class="card">
+  <div class="card-body">
+    <ngx-stripe-elements
+    *ngIf="elementsOptions.clientSecret !== ''"
+    [stripe]="stripe"
+    [elementsOptions]="elementsOptions"
+  >
+    <ngx-stripe-payment [options]="paymentElementOptions" />
+    </ngx-stripe-elements>
+
+  </div>
+
+  <button class="btn btn-primary mt-2" (click)="pay()">PAY</button>
+
+</div>
+  
+

@@ -1,0 +1,38 @@
+.account-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    .account-content {
+        flex-grow: 2;
+        margin-left: 1.5rem;
+    }
+
+    .sidebar-list {
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        .sidebar-item {
+            &:not(:last-of-type) {
+                border-bottom: 1px solid #757575;
+            }
+            .sidebar-link {
+                display: inline-block;
+                color: #434748;
+                font-size: 16px;
+                width: 100%;
+                padding: 1rem 1.2rem;
+                background-color: #fff;
+
+                &:active, &:hover, &:has(.active-link) {
+                    background-color: #ddd;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+.active-link {
+    background-color: #ddd !important;
+    font-weight: 600;
+}

@@ -8,7 +8,7 @@ import {
   RowClassRules,
   GridApi
 } from "ag-grid-community";
-import { BrandsService } from '../services/brands.service';
+import { BrandsService } from '../../services/brands.service';
 import { Brand } from '../models/brands';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditBrandDialogComponent } from '../dialogs/add-edit-brand-dialog/add-edit-brand-dialog.component';

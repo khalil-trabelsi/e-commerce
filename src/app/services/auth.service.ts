@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Injectable, OnDestroy, signal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user';
 import { StorageService } from '../helpers/storage.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
+  private destroy$ = new Subject<void>()
   private apiUrl = environment.apiUrl
   constructor(
     private httpClient: HttpClient,
@@ -39,10 +40,21 @@ export class AuthService {
 
   logout() {
     this.httpClient.get(`${this.apiUrl}/auth/logout`).subscribe(
-      () =>{ 
-        this.router.navigate(['/auth/login']);
-        this.storageService.clean();
+      {
+        next: (data) => {
+          this.storageService.clean();
+          this.router.navigate(['/auth/login']);
+        },
+        error: err => {
+          console.log(err)
+        }
       }
     )
+  }
+  
+
+  ngOnDestroy(): void {
+      this.destroy$.next();
+      this.destroy$.complete();
   }
 }

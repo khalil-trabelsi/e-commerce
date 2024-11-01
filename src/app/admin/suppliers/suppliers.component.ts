@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Supplier } from '../models/Supplier';
-import { SuppliersService } from '../services/suppliers.service';
+import { SuppliersService } from '../../services/suppliers.service';
 import { map, Subject, takeUntil } from 'rxjs';
 import {
   ColDef,

@@ -109,7 +109,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   private getAllUsers() {
-    this.usersService.getAllUsers().pipe(takeUntil(this.destroy$)).subscribe(
+    this.usersService.getAdminstrators().pipe(takeUntil(this.destroy$)).subscribe(
       users => {
         this.allUsers = users;
       }

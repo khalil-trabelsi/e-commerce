@@ -9,7 +9,7 @@ import {
   RowClassRules,
   GridApi
 } from "ag-grid-community";
-import { CategoriesService } from '../services/categories.service';
+import { CategoriesService } from '../../services/categories.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditCategoryDialogComponent } from '../dialogs/add-edit-category-dialog/add-edit-category-dialog.component';
 import { filter, Observable, Subject, switchMap, takeUntil } from 'rxjs';

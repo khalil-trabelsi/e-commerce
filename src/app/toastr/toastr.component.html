@@ -1,0 +1,33 @@
+<div class="card toastr-container" style="min-width: 350px; max-width: 500px;border-radius: 5px;">
+    <ng-container *ngIf="type === 'info'">
+        <div class="card-body d-flex align-items-center gap-3 bg-primary">
+            <div class="bg-white">
+             <span  class="material-symbols-outlined text-primary" style="border: 1px solid #fff; padding: 5px; font-size: 30px; border-radius: 5px; ">
+                 question_mark
+             </span>
+            </div>
+            <p class=" text-wrap text-white" style="font-size: 1rem">{{ message }}</p>
+         </div>
+    </ng-container>
+    <ng-container *ngIf="type === 'success'">
+        <div class="card-body d-flex align-items-center gap-3 bg-success" style="border-radius: 5px;">
+            <div class="bg-white">
+             <span  class="material-symbols-outlined text-success" style="border: 1px solid #fff; padding: 5px; font-size: 30px; ">
+                 question_mark
+             </span>
+            </div>
+            <p class="text-wrap text-white" style="font-size: 1rem">{{ message }}</p>
+         </div>
+    </ng-container>
+
+    <ng-container *ngIf="type === 'error'">
+        <div class="card-body d-flex align-items-center gap-3 bg-danger" style="border-radius: 5px;">
+            <div class="bg-white">
+             <span  class="material-symbols-outlined text-danger" style="border: 1px solid red; padding: 5px; font-size: 30px; ">
+                 error
+             </span>
+            </div>
+            <p class="text-wrap text-white" style="font-size: 1rem">{{ message }}</p>
+         </div>
+    </ng-container>
+</div>

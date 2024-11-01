@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SuppliersService } from '../../services/suppliers.service';
-import { ProductsService } from '../../services/products.service';
-import { StockMovementsService } from '../../services/stock-movements.service';
+import { SuppliersService } from '../../../services/suppliers.service';
+import { ProductsService } from '../../../services/products.service';
+import { StockMovementsService } from '../../../services/stock-movements.service';
 import { Subject, takeUntil } from 'rxjs';
 import { NotificationService } from '../../../helpers/notification.service';
 

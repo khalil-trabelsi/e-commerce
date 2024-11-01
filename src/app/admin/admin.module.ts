@@ -7,7 +7,7 @@ import { UsersComponent } from './users/users.component';
 import { AgMaterialModule } from '../ag-material/ag-material.module';
 import { AddEditUserDialogComponent } from './dialogs/add-edit-user-dialog/add-edit-user-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { AddEditSupplierDialogComponent } from './dialogs/add-edit-supplier-dialog/add-edit-supplier-dialog.component';
 import { CategoriesComponent } from './categories/categories.component';
@@ -22,6 +22,11 @@ import { AddEditProductDialogComponent } from './dialogs/add-edit-product-dialog
 import { StockMovementsComponent } from './stock-movements/stock-movements.component';
 import { AddEditStockEntryComponent } from './dialogs/add-edit-stock-entry/add-edit-stock-entry.component';
 import { CollectionComponent } from './collection/collection.component';
+import { AddEditCustomerComponent } from './dialogs/add-edit-customer/add-edit-customer.component';
+import { OrdersComponent } from './orders/orders.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatConversationComponent } from './chat/chat-conversation/chat-conversation.component';
 
 
 @NgModule({
@@ -40,7 +45,12 @@ import { CollectionComponent } from './collection/collection.component';
     AddEditProductDialogComponent,
     StockMovementsComponent,
     AddEditStockEntryComponent,
-    CollectionComponent
+    CollectionComponent,
+    AddEditCustomerComponent,
+    OrdersComponent,
+    DashboardComponent,
+    ChatComponent,
+    ChatConversationComponent
 
   ],
   imports: [
@@ -49,6 +59,7 @@ import { CollectionComponent } from './collection/collection.component';
     ReactiveFormsModule,
     AdminRoutingModule,
     SharedModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

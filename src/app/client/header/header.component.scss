@@ -22,23 +22,28 @@ a {
     .client-header-top {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         height: 106px;
         padding: 0 16px;
         margin: 0 auto;
         gap: 25px;
         border-bottom: 1px solid #777;
         width: 100%;
+        .client-header-logo {
+            .page-title {
+                display: none;
+            }
+        }
         .client-menu {
             display: flex;
             align-items: center;
             // flex-grow: 3;
-            .client-menu-nav ul {
+            .client-menu-nav .client-menu-nav-container {
                 display: flex;
                 align-items: center;
-                li {
+                .nav-top-item {
                     margin-right: 25px;
-                    a {
+                    .nav-top-link {
                         flex-direction: column;
                         font-weight: bold;
                     }
@@ -46,9 +51,8 @@ a {
             }
         }
     }
-
     .main-menu {
-        height: 56px;
+        height: auto;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -57,6 +61,7 @@ a {
         .main-menu-list {
             display: flex;
             align-items: center;
+            max-width: 100%;
             // gap: 15px;
             .main-menu-item {
                 border-right: 1px solid #ededed;
@@ -76,7 +81,6 @@ a {
                             width: 100%;
                         }
                     }
-
                     &::before {
                         content: '';
                         transition: all 0.2s ease-in;
@@ -98,10 +102,10 @@ a {
 }
 
 .search-bar {
-    margin-right: 35px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    // margin-right: 35px;
+    // display: flex;
+    // align-items: center;
+    // gap: 5px;
 }
 
 .search-input {
@@ -191,4 +195,142 @@ a {
     &:hover {
         text-decoration: underline;
     }
+}
+
+.header-nav-link {
+    position: relative;
+
+    .header-nav-link-badge {
+        position: absolute;
+        top: -3.5px;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        background-color: var(--color-danger);
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+.header-nav-account {
+    position: relative;
+
+    .logged-check {
+        position: absolute;
+        font-size: 1.2rem;
+        color: var(--color-success);
+        right: 25px;
+    }
+}
+
+
+.account-links {
+    position: relative;
+    &:hover {
+        .account-menu {
+            display: flex;
+        }
+    }
+}
+
+.account-menu {
+    position: absolute;
+    flex-direction: column;
+    background-color: #fff;
+    z-index: 99;
+    border-radius: 8px;
+    display: none;
+    right: 0;
+    transition: all 0.3s ease-in;
+    box-shadow: 0 2px 8px  rgba(0,0,0,0.5);
+    .account-menu-item {
+        padding: 1rem 1.2rem;
+        left: 0;
+        top: 15px;
+        &:not(:last-of-type) {
+            border-bottom: 1px solid #757575
+        }
+    }
+}
+
+
+@media screen and (max-width: 767px) {
+    .client-header-logo img {
+        display: none;
+    }
+    .search-input {
+        width: 200px;
+        padding: 7px 32px;
+        border: none;
+
+    }
+
+    .client-header-container {
+  
+
+    .client-header-top {
+        height: 54px;
+        gap: 6px;
+        justify-content: flex-start;
+        padding: 0 2px;
+        .client-header-logo {
+            .page-title {
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
+        .client-menu {
+            justify-content: space-between;
+            .client-menu-nav .client-menu-nav-container {
+                .nav-top-item {
+                    margin-right: 7px;
+                    .nav-top-link {
+                        .material-symbols-outlined {
+                        font-weight: 500;
+                        font-size: 24px;
+                        }
+                        .nav-top-title {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    
+    .header-nav-link {
+
+        .header-nav-link-badge {
+            width: 15px;
+            height: 15px;
+            right: 0;
+            font-size: 10px;
+        }
+    }
+
+    .header-nav-account {
+    position: relative;
+
+    .logged-check {
+        display: none;
+    }
+    }
+    
+    .main-menu {
+        .main-menu-list {
+            overflow: scroll;
+        }
+    }
+}
+
+    // .client-header-container {
+    //     .main-menu {
+
+    //     }
+    // }
 }

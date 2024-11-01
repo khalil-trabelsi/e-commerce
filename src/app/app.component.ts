@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoadingService } from './helpers/loading.service';
+import { ChatWsService } from './services/chat-ws.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,7 @@ import { LoadingService } from './helpers/loading.service';
 export class AppComponent {
   title = 'e-commerce';
 
-  constructor(public loadingService: LoadingService) {}
+  constructor(
+    public loadingService: LoadingService,
+  ) {}
 }

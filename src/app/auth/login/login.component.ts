@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../helpers/storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { ChatWsService } from '../../services/chat-ws.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { Subject } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  private history!:any;
+  private previousLocation!:any;
   isLoggedIn = this.storageService.isLoggedIn()
   hide = true
   form = this.fb.group({
@@ -25,11 +26,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private storageService: StorageService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.history = this.route.snapshot.queryParams['history'];
+    this.previousLocation = this.route.snapshot.queryParamMap.get('location');
+    this.route.queryParamMap.subscribe(
+      data => console.log(data)
+    )
   }
 
   login() {
@@ -42,9 +46,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.authService.signin(request).subscribe(
         response => {
           this.storageService.saveUser(response.user);
-          this.storageService.saveToken(response.token)
-          this.history = this.history ? this.history : response.user?.role?.label.includes('ADMIN') ? '/admin/dashboard' : '/profile'
-          this.router.navigate(['/admin/dashboard']);
+          this.storageService.saveToken(response.token);
+          console.log(this.previousLocation)
+          this.previousLocation = this.previousLocation ? this.previousLocation : response.user?.role?.label.includes('ADMIN') ? '/admin/dashboard' : '/'
+          this.router.navigate([this.previousLocation]);
         }
       )
     } else {

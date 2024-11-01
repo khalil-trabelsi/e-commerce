@@ -1,0 +1,38 @@
+.card-detail     {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.title {
+    color: #777;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-body {
+    display: flex;
+}
+
+.card-icon {
+    font-size: 2rem;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.bg-success-light {
+    background-color: #99d98c;
+}
+
+.bg-info-light {
+    background-color: rgba(142, 236, 245, 0.6);
+}
+
+.bg-warning-light {
+    background-color: #fee440;
+}

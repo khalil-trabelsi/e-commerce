@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { BrandsService } from '../../services/brands.service';
+import { BrandsService } from '../../../services/brands.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { CategoriesService } from '../../services/categories.service';
+import { CategoriesService } from '../../../services/categories.service';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ProductsService } from '../../services/products.service';
+import { ProductsService } from '../../../services/products.service';
 import { forkJoin, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { NotificationService } from '../../../helpers/notification.service';
-import { CollectionService } from '../../services/collection.service';
+import { CollectionService } from '../../../services/collection.service';
 
 @Component({
   selector: 'app-add-edit-product-dialog',

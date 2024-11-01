@@ -1,53 +1,90 @@
-import { Component, HostListener, OnDestroy, OnInit, signal } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditUserDialogComponent } from '../dialogs/add-edit-user-dialog/add-edit-user-dialog.component';
-import { CustomersService } from '../services/customers.service';
-import { Subject, takeUntil } from 'rxjs';
+import { CustomersService } from '../../services/customers.service';
+import { filter, map, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { NotificationService } from '../../helpers/notification.service';
+import { Customer } from '../../models/customer';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { AddEditCustomerComponent } from '../dialogs/add-edit-customer/add-edit-customer.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from '../../toastr/toastr.service';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../store/app.store';
+import { selectCustomersEntitiesConverted$, selectCustomersLoading$ } from '../../store/selectors/customer.selector';
+import { CustomerModule } from '../../store/actions/customer.action';
 
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss'
 })
-export class CustomersComponent implements OnInit, OnDestroy {
+export class CustomersComponent implements OnInit, AfterViewInit,OnDestroy {
   private destroy$ = new Subject<void>();
-  customers: any[] = []
+  
+  customers$!: Observable<Customer[]>;
+  customersLoading$!: Observable<boolean>;
+
   showDropdownMenu = signal(false)
   currentItemClicked = signal(-1)
   dropdownAtBottom = signal(false)
+
+  displayedColumns = ['id', 'first_name', 'last_name', 'email', 'gender', 'status', 'actions']
+  
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  dataSource = new MatTableDataSource<Customer>()
+
   constructor(
     private customersService: CustomersService,
     private dialog: MatDialog,
-    private notificationService: NotificationService
-  ) {}
-
+    private notificationService: NotificationService,
+    private toastrService: ToastrService,
+    private store: Store<AppState>
+  ) {
+    this.customers$ = store.pipe(select(selectCustomersEntitiesConverted$));
+    this.customersLoading$ = store.pipe(select(selectCustomersLoading$))
+  }
+ 
   ngOnInit(): void {
-      this.getCustomers();
+      this.store.dispatch(new CustomerModule.LoadInitCustomers());
 
-      this.customersService.refreshCustomers.pipe(takeUntil(this.destroy$))
-      .subscribe(
-        _ => this.getCustomers()
+      this.customers$.pipe(takeUntil(this.destroy$)).subscribe(
+        data => {
+          console.log(data.length);
+          this.dataSource.data = data
+        }
       )
   }
 
-  getCustomers() {
-    this.customersService.getAllCustomers().pipe(takeUntil(this.destroy$)).subscribe(
-      data => this.customers = data
-    )
+  ngAfterViewInit(): void {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
   }
 
+
   addCustomer() {
-    this.dialog.open(
-      AddEditUserDialogComponent, {
+    const dialogRef = this.dialog.open( 
+      AddEditCustomerComponent, {
         width: '45vw',
         data: {
           type: 'create'
         }
       }
     )
+
+    dialogRef.afterClosed().pipe(
+      filter(user => !!user),
+      map(new_user => this.store.dispatch(new CustomerModule.LoadCreatCustomer(new_user))), 
+      takeUntil(this.destroy$)
+    ).subscribe(
+      _ =>  this.toastrService.openToastr('Customer successfully created', 'success')
+    )
+
   }
 
   showUserAction(index: number, event: Event) {

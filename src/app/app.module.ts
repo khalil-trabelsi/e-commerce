@@ -23,10 +23,15 @@ import { DatePickerFormatDirective } from './directives/date-picker-format.direc
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SharedModule } from './shared/shared.module';
-import { AgGridModule } from 'ag-grid-angular';
-import { AgMaterialModule } from './ag-material/ag-material.module';
 import { ConfirmationEmailComponent } from './auth/confirmation-email/confirmation-email.component';
 import { ConfirmationEmailNotificationComponent } from './auth/confirmation-email-notification/confirmation-email-notification.component';
+import { ToastrModule } from './toastr/toastr.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { appEffects, getReducers, REDUCER_TOKEN } from './store/app.store';
+import { environment } from '../environments/environment.development';
+
+const config = { url: environment.apiUrl, options: {} }
 
 @NgModule({
   declarations: [
@@ -43,6 +48,7 @@ import { ConfirmationEmailNotificationComponent } from './auth/confirmation-emai
     DatePickerFormatDirective,
     ConfirmationEmailComponent,
     ConfirmationEmailNotificationComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,11 +58,18 @@ import { ConfirmationEmailNotificationComponent } from './auth/confirmation-emai
     MatMomentDateModule,
     SharedModule,
     AppRoutingModule,
+    ToastrModule,
+    StoreModule.forRoot(REDUCER_TOKEN),
+    EffectsModule.forRoot(appEffects)
   ],
   providers: [
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    {
+      provide: REDUCER_TOKEN,
+      useFactory: getReducers
+    }
   ],
   bootstrap: [AppComponent]
 })

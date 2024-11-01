@@ -10,6 +10,9 @@ import { ProductsComponent } from './products/products.component';
 import { CustomersComponent } from './customers/customers.component';
 import { StockMovementsComponent } from './stock-movements/stock-movements.component';
 import { CollectionComponent } from './collection/collection.component';
+import { OrdersComponent } from './orders/orders.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatConversationComponent } from './chat/chat-conversation/chat-conversation.component';
 
 const routes: Routes = [
   {
@@ -23,6 +26,10 @@ const routes: Routes = [
       {
         path: 'suppliers',
         component: SuppliersComponent,
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent,
       },
       {
         path: 'users',
@@ -45,9 +52,15 @@ const routes: Routes = [
         path: 'products',
         component: ProductsComponent
       },
-      {
-        path: 'stock-movements',
-        component: StockMovementsComponent
+     {
+        path: 'chat',
+        component: ChatComponent,
+        children: [
+          {
+            path: ':id',
+            component: ChatConversationComponent
+          }
+        ]
       },
       {
         path: 'collections',

@@ -2,13 +2,11 @@
     <div class="client-header-container">
         <div class="client-header-top">
             <div class="client-header-logo">
-                <p>
-                    <a href="#">
-                        <img src="../../../assets/logo.png" height="78"  alt="">
-                    </a>
-                </p>
+                <a href="#">
+                    <img src="../../../assets/shopyfast_logo2.jpeg" height="68"  alt="">
+                    <span class="text-primary page-title">Shopyfast</span>
+                </a>
             </div>
-            <div class="client-menu">
                 <div class="search-bar">
                     <!-- <app-autocomplete-multiselect
                     type="categories"
@@ -21,32 +19,61 @@
                 </app-autocomplete-multiselect> -->
                 <input type="text" class="search-input" placeholder="Search for items...">
                 </div>
+            <div class="client-menu">
+            
                 <div class="client-menu-nav">
-                    <ul>
-                        <li>
-                            <a href="">
+                    <ul class="client-menu-nav-container">
+                        <li class="nav-top-item">
+                            <a class="nav-top-link" href="">
                                 <span class="material-symbols-outlined">
                                     favorite
                                 </span>
-                                <span>Favories</span>
+                                <span class="nav-top-title">Favories</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class="header-nav-link nav-top-item">
+                            <a class="nav-top-link" routerLink="/checkout/cart" >
                                 <span class="material-symbols-outlined">
                                     shopping_cart
                                 </span>
-                                <span>Panier</span>
+                                <span class="nav-top-title">Panier</span>
                             </a>
+                            <span class="header-nav-link-badge" *ngIf="cartItemsNumber()">{{cartItemsNumber()}}</span>
                         </li>
-                        <li>
-                            <a routerLink="/auth/login">
+                        <li class="nav-top-item" *ngIf="!isLoggedIn; else loggedIn">
+                            <a class="nav-top-link" routerLink="/auth/login">
                                 <span class="material-symbols-outlined">
                                     person
                                 </span>
                                 <span>Se connecter</span>
                             </a>
                         </li>
+
+                        <ng-template #loggedIn>
+                            <li class="header-nav-account nav-top-item account-links">
+                                <a class="nav-top-link">
+                                    <span class="material-symbols-outlined">
+                                        person
+                                    </span>
+                                    <span class="nav-top-title">Mon compte</span>
+                                </a>
+                                <span class="material-symbols-outlined logged-check">
+                                    check_circle
+                                </span>
+
+                                <ul class="account-menu">
+                                    <li class="account-menu-item">
+                                        <a class="account-menu-link" routerLink="/account/orders">Mon compte</a>
+                                    </li>
+                                    <li class="account-menu-item">
+                                        <a class="account-menu-link" routerLink="/account/orders">Mes achats</a>
+                                    </li>
+                                    <li class="account-menu-item">
+                                        <button class="account-menu-link btn" (click)="logout()">Déconnexion</button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ng-template>
                     </ul>
                 </div>
             </div>
@@ -77,22 +104,22 @@
                   </ul>
                 </li>
                 <li class="main-menu-item">
-                    <a class="nav-link" href="#">Meilleures ventes</a>
+                    <a class="nav-link" href="#">Femmes</a>
                 </li>
                 <li class="main-menu-item">
-                    <a class="nav-link" href="#">Bon plan</a>
+                    <a class="nav-link" href="#">Hommes</a>
                 </li>
                 <li class="main-menu-item">
                     <a class="nav-link" href="#">Nouveautés</a>
                 </li>
                 <li class="main-menu-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="#">Bijous</a>
                 </li>
                 <li class="main-menu-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="#">Electronics</a>
                 </li>
                 <li class="main-menu-item">
-                    <a class="nav-link" href="#">Services</a>
+                    <a class="nav-link" href="#">Bags</a>
                 </li>
             </ul>
         </div>

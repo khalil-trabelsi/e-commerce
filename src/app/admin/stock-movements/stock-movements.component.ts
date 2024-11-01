@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditStockEntryComponent } from '../dialogs/add-edit-stock-entry/add-edit-stock-entry.component';
-import { StockMovementsService } from '../services/stock-movements.service';
+import { StockMovementsService } from '../../services/stock-movements.service';
 
 import {
   ColDef,
@@ -15,8 +15,8 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DateFormattingService } from '../../helpers/date-formatting.service';
 import { Subject, take, takeUntil } from 'rxjs';
-import { SuppliersService } from '../services/suppliers.service';
-import { ProductsService } from '../services/products.service';
+import { SuppliersService } from '../../services/suppliers.service';
+import { ProductsService } from '../../services/products.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({

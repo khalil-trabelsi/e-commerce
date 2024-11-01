@@ -17,24 +17,24 @@ export class RegisterComponent implements OnDestroy {
   @ViewChild(FormGroupDirective) formRef!: FormGroupDirective;
   registrationValid = signal(false);
 
-  registrationFormGroup = this.fb.group({
-    firstName: this.fb.control('', [Validators.required, Validators.minLength(4)]),
-    lastName: this.fb.control('', [Validators.required, Validators.minLength(4)]),
-    birthdate: this.fb.control('', [Validators.required]),
-    email: this.fb.control('', [Validators.required, Validators.email]),
-    password: this.fb.control('', [Validators.required, 
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]),
-    phoneNumber: this.fb.control('', [Validators.required, Validators.pattern("^((\\+33)|0)[0-9]{9}$")]),
-    gender: this.fb.control('male', [Validators.required])
-  });
-
+  registrationFormGroup;
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private notificationService: NotificationService,
     private dateFormatteingService: DateFormattingService,
     private router: Router
-  ) { }
+  ) { 
+    this.registrationFormGroup = this.fb.group({
+      firstName: this.fb.control('', [Validators.required, Validators.minLength(4)]),
+      lastName: this.fb.control('', [Validators.required, Validators.minLength(4)]),
+      birthdate: this.fb.control('', [Validators.required]),
+      email: this.fb.control('', [Validators.required, Validators.email]),
+      password: this.fb.control('', [Validators.required, 
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]),
+      phoneNumber: this.fb.control('', [Validators.required, Validators.pattern("^((\\+33)|0)[0-9]{9}$")]),
+      gender: this.fb.control('male', [Validators.required])
+    });}
 
   saveUser() {
     const user = {

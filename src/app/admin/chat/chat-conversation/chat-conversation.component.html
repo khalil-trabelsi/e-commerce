@@ -1,0 +1,27 @@
+<div class="chat-room">
+    <div class="card chat-wrapper">
+        <div class="card-header">
+            {{receiverId}}
+        </div>
+        <div class="card-body discussion-row">
+            <ul class="d-flex flex-column gap-2">
+                <!-- chatWS.messages() -->
+                <li *ngFor="let msg of chatWS.messages()" 
+                    class="message" 
+                    [class.sent-message]="msg.sender_id === senderId"
+                    [class.received-message]="msg.sender_id !== senderId">
+                        {{msg.content}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <form action="">
+        <div class="form-group input-wrapper">
+            <input [(ngModel)]="inputMessage" type="text" class="form-control" [autocomplete]="false" id="message" name="inputMessage" placeholder="Your message">
+            <button mat-button type="submit" (click)="sendMessage($event)">
+                <span class="material-symbols-outlined">send</span>
+            </button>
+        </div>
+
+    </form>
+</div>

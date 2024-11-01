@@ -1,0 +1,37 @@
+<div class="chat-container">
+    <!-- <div class="list-of-users">
+        Connected users   {{chatWS.numConnectedUsers() | json}}
+        <form [formGroup]="form">
+         <mat-selection-list [formControl]="receiverId" [multiple]="false">
+        @for (user of chatWS.connectedUsers(); track user) {
+            <mat-list-option [value]="user">{{user}}</mat-list-option>
+        }
+        </mat-selection-list>
+        </form>
+      
+    </div> -->
+    <div class="list-of-users">
+        <div class="card">
+            <div class="card-header p-2 bg-primary text-white">
+                <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="userSearch" (keyup)="filterUsers($event)"/>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li *ngFor="let user of filteredUsers" class="user list-group-item" >
+                        <div class="profile-info btn" (click)="startConversation(user.id)">
+                            <img src="../../../assets/person-logo.png" alt="profile logo" class="profile-pic" matToolTip="user logo">
+                            <button class="btn user-info">
+                                    <span class="user-info-name">{{ user.first_name }}</span>
+                                    <span class="user-info-email">{{user.email}}</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+  
+    </div>
+    <router-outlet></router-outlet>
+</div>

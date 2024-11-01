@@ -6,6 +6,7 @@ import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { LoadingService } from './loading.service';
 import { StorageService } from './storage.service';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
@@ -16,7 +17,8 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     private dialog: MatDialog,
     private loadingService: LoadingService,
     private storageService: StorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.totalRequest++;
@@ -29,10 +31,11 @@ export class HttpRequestInterceptor implements HttpInterceptor {
  
       return next.handle(newRequest).pipe(
         catchError((err: any) => {
+          if (err instanceof HttpErrorResponse && newRequest.url.includes('auth/logout')) {
+              this.storageService.clean();
+              this.router.navigateByUrl('/auth/login')
+          }
           if (err instanceof HttpErrorResponse && !newRequest.url.includes('auth/logout') && !newRequest.url.includes('auth/login') && err.status === 401) {
-            if(err.error.error.includes('Token is invalid or revoked')) {
-              this.authService.logout()
-            }
             return this.handle401Error(newRequest, next);
           }
           let errMsg = '';

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditProductDialogComponent } from '../dialogs/add-edit-product-dialog/add-edit-product-dialog.component';
-import { ProductsService } from '../services/products.service';
+import { ProductsService } from '../../services/products.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ColDef,SizeColumnsToContentStrategy, SizeColumnsToFitGridStrategy, SizeColumnsToFitProvidedWidthStrategy } from 'ag-grid-community'
 import { Subject, switchMap, take, takeUntil } from 'rxjs';

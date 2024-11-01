@@ -1,3 +1,71 @@
-<p>
-    ytes
-</p>
+<div class="dash-container">
+    <div class="dash-title">
+        <h1>Overview</h1>
+    </div>
+    <div>
+        <ng-container *ngIf="salesOverview">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-content">
+                            <p class="card-detail">
+                                € {{ salesOverview.total_sales ? salesOverview.total_sales / 100 : 0 }}
+                            </p>
+                            <div class="title">
+                                Total sales
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined text-success card-icon bg-success-light">paid</span>
+                    </div>
+                </div>     
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-content">
+                            <p class="card-detail">
+                                {{ salesOverview.total_customers }}
+                            </p>
+                            <div class="title">
+                                Total customers
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined text-info card-icon bg-info-light">group</span>
+                    </div>
+                </div>     
+            </div>   
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-content">
+                            <p class="card-detail">
+                                {{ salesOverview.total_products }}
+                            </p>
+                            <div class="title">
+                                Total products
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined text-warning card-icon bg-warning-light">storefront</span>
+                    </div>
+                </div>     
+            </div>  
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-content">
+                            <p class="card-detail">
+                                {{ salesOverview.total_customers }}
+                            </p>
+                            <div class="title">
+                                Total partners
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined text-success card-icon">paid</span>
+                    </div>
+                </div>     
+            </div>                                    
+        </div>
+        </ng-container>
+    </div>
+</div>    

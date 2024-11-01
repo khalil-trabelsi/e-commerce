@@ -1,0 +1,49 @@
+<h3 mat-dialog-title class="dialiog-title">
+    Donnez votre avis
+</h3>
+<mat-dialog-content class="dialog-content">
+    <div class="dialog-content-img">
+        <img [src]="data.image" alt="">
+    </div>
+    <div class="product-review-details">
+        <h2>{{data.productName}}</h2>
+        <form [formGroup]="ratingFormGroup">
+            <div class="form-container">
+                <ul class="criterions-list">
+                    <li class="criterion-label">
+                        <label for="">Quality</label>
+                        <input type="number" hidden formControlName="rating">
+                    </li>
+                    <li class="star" [ngClass]="{'star-on': star <= ratingHovered || star <= ratingSelected}"  
+                        (mouseleave)="onMouseLeave()" 
+                        (mouseenter)="onMouseEnter(star)" 
+                        (click)="onStarClick(star)"
+                        *ngFor="let star of [1,2,3,4,5]"
+                        >
+                        <i class="fa-solid fa-star" ></i>
+                    </li>
+                    <button type="button"  (click)="clearRating()" class="btn btn-danger" style="margin-left: 1rem;">clear</button>
+                </ul>
+                <div class="form-group">
+                    <label for="">Titre pour votre commentaire <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" formControlName="title">
+                </div>
+                <div class="form-group">
+                    <label for="">Votre name  <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" formControlName="username">
+                </div>
+                <div class="form-group">
+                    <label for="description">Votre avis  <span class="text-danger">*</span></label>
+                    <textarea name="description" id=""  class="form-control" formControlName="comment"></textarea>
+                </div>
+            </div>
+        </form> 
+    </div>
+    
+
+    
+</mat-dialog-content>
+<mat-dialog-actions align="end" >
+    <button mat-flat-button class="btn btn-primary" (click)="onSubmit()">Save</button>
+    <button mat-dialog-close mat-flat-button class="btn btn-secondary" >Close</button>
+</mat-dialog-actions>

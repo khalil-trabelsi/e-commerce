@@ -1,0 +1,15 @@
+<div class="dash-container">
+    <section class="dash-title">
+        <h1>Orders management</h1>
+    </section>
+    <section>
+        <ag-grid-angular 
+        [rowData]="orders"
+        [columnDefs]="colDefs"
+        [autoSizeStrategy]="autoSizeStrategy"
+        [pagination]="true"
+        [paginationAutoPageSize]="true"
+        style="height: calc(100vh - 300px);"
+        class="ag-theme-quartz" />
+    </section>
+</div>

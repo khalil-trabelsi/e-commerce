@@ -1,138 +1,16 @@
-<div class="main-container">
-    <div class="side-bar">
-        <div class="logo">
-                <h2>Logo</h2>
-        </div>
-        <div class="menu">
-            <div class="nav-group">
-                <div class="nav-item">
-                 
-                    <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/dashboard">
-                        <span class="material-symbols-outlined">
-                            dashboard
-                        </span>
-                        <span class="link-title">
-                            Dashboard
-                        </span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                 
-                    <a routerLinkActive="link-active" class="nav-link">
-                        <span class="material-symbols-outlined">
-                            compare_arrows
-                        </span>
-                        <span class="link-title">Payments</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a routerLinkActive="link-active" class="nav-link">
-                        <span class="material-symbols-outlined">
-                            apps
-                        </span>
-                        <span class="link-title">
-                            Orders
-                        </span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a routerLinkActive="link-active" class="nav-link">
-                        <span class="material-symbols-outlined">
-                            currency_exchange
-                        </span>
-                        <span class="link-title">
-                            Sales
-                        </span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a routerLinkActive="link-active" class="nav-link">
-                        <span class="material-symbols-outlined">
-                            chat
-                        </span>
-                        <span class="link-title">Messages</span>
-                    </a>
-                </div>
-                
-                <div class="nav-item">
-                    <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/suppliers">
-                        <span class="material-symbols-outlined">store</span>
-                        <span class="link-title">Suppliers</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/products">
-                        <span class="material-symbols-outlined">inventory_2</span>
-                        <span class="link-title">Products</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                
-                    <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/stock-movements">
-                        <span class="material-symbols-outlined">
-                            question_exchange
-                        </span>
-                        <span class="link-title">Stock movements</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/categories">
-                        <span class="material-symbols-outlined">
-                            category
-                        </span>
-                        <span class="link-title">Categories</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/brands">
-                        <span class="material-symbols-outlined">
-                            action_key
-                        </span>
-                        <span class="link-title">Brands</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/collections">
-                        <span class="material-symbols-outlined">
-                            apps
-                        </span>
-                        <span class="link-title">Collections</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                  
-                    <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/customers">
-                        <span class="material-symbols-outlined">
-                            patient_list
-                        </span>
-                        <span class="link-title">Customers</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                  
-                    <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/users">
-                        <span class="material-symbols-outlined">
-                            group
-                        </span>
-                        <span class="link-title">Users</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                 
-                    <a routerLinkActive="link-active" class="nav-link">
-                        <span class="material-symbols-outlined">
-                            chat
-                        </span>
-                        <span class="link-title">Messages</span>
-                    </a>
-                </div>
-            </div>
-
-            </div>
-    </div>
-    <div class="admin-panel">
-        <div class="nav-bar">
+<div class="admin-panel">
+    <div class="nav-bar">
           <div class="left-bar">
+                 <div class="d-flex align-items-center justify-content-between">
+            <button mat-button (click)="toggleSidebarMenu()">
+                <span class="material-symbols-outlined">
+                    menu
+                </span>
+            </button>
+            <a href="#" class="flex-grow-1">
+                <img src="../../../assets/shopyfast_logo2.jpeg" height="38"  alt="">
+            </a>        
+        </div>
             <input type="text" class="search-input" placeholder="search...">
             <div class="icon">
                 <span class="material-symbols-outlined">
@@ -154,10 +32,126 @@
                 </button>
             </div>
           </div>
-        </div>
-        <main class="content">
-          <router-outlet></router-outlet>
-        </main>
     </div>
-    
+</div>
+<div class="main-container"  [ngClass]="{'sidebar-item-hidden': showHideSideBar()}">
+    <div class="side-bar">
+        <div class="menu">
+                <div class="nav-group">
+                    <div class="nav-item">
+                        <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/dashboard">
+                            <span class="material-symbols-outlined">
+                                dashboard
+                            </span>
+                            <span class="link-title">
+                                Dashboard
+                            </span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a routerLinkActive="link-active" class="nav-link">
+                            <span class="material-symbols-outlined">
+                                compare_arrows
+                            </span>
+                            <span class="link-title">Paiements</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a routerLinkActive="link-active" routerLink="/admin/orders" class="nav-link">
+                            <span class="material-symbols-outlined">
+                                apps
+                            </span>
+                            <span class="link-title">
+                                Commandes
+                            </span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a routerLinkActive="link-active" class="nav-link">
+                            <span class="material-symbols-outlined">
+                                currency_exchange
+                            </span>
+                            <span class="link-title">
+                                Ventes
+                            </span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a [routerLink]="['/admin/chat']" routerLinkActive="link-active" class="nav-link">
+                            <span class="material-symbols-outlined">
+                                chat
+                            </span>
+                            <span class="link-title">Messages</span>
+                        </a>
+                    </div>
+                    
+                    <div class="nav-item">
+                        <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/suppliers">
+                            <span class="material-symbols-outlined">store</span>
+                            <span class="link-title">Fournisseurs</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/products">
+                            <span class="material-symbols-outlined">inventory_2</span>
+                            <span class="link-title">Produits</span>
+                        </a>
+                    </div>
+                    <!-- <div class="nav-item">
+                    
+                        <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/stock-movements">
+                            <span class="material-symbols-outlined">
+                                question_exchange
+                            </span>
+                            <span class="link-title">Mouvements de stock</span>
+                        </a>
+                    </div> -->
+                    <div class="nav-item">
+                        <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/categories">
+                            <span class="material-symbols-outlined">
+                                category
+                            </span>
+                            <span class="link-title">Categories</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/brands">
+                            <span class="material-symbols-outlined">
+                                action_key
+                            </span>
+                            <span class="link-title">Brands</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/collections">
+                            <span class="material-symbols-outlined">
+                                apps
+                            </span>
+                            <span class="link-title">Collections</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                    
+                        <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/customers">
+                            <span class="material-symbols-outlined">
+                                patient_list
+                            </span>
+                            <span class="link-title">Clients</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                    
+                        <a routerLinkActive="link-active" class="nav-link" routerLink="/admin/users">
+                            <span class="material-symbols-outlined">
+                                group
+                            </span>
+                            <span class="link-title">Adminstrateurs</span>
+                        </a>
+                    </div>
+                </div>
+        </div>
+    </div>  
+    <main class="content">
+        <router-outlet></router-outlet>
+    </main>
 </div>
