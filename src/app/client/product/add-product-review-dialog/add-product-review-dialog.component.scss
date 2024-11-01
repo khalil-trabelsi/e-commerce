@@ -1,0 +1,41 @@
+.dialog-content {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+
+    .dialog-content-img {
+        flex-basis: 425px;
+        img {
+            width: 90%;
+        }
+    }
+
+    .product-review-details {
+        h2 {
+            font-weight: 600;
+            color: #333;
+        }
+    }
+}
+
+.form-container  {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.criterions-list {
+    display: flex;
+}
+
+.star {
+    cursor: pointer;
+}
+
+.criterion-label {
+    margin-right: 0.75rem;
+}
+
+.star-on {
+    color: gold;
+}

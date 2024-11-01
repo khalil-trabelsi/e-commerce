@@ -1,0 +1,52 @@
+<div class="checkout-template">
+    <div class="cart-title">
+        <h2>Panier <span class="cart-title-details">({{cartItemsNumber()}} produits)</span></h2>
+    </div>
+    
+    <section class="checkout-template-container">
+        <div class="checkout-template-body" *ngIf="cartItems().length; else noItems">
+            <div class="checkout-template-left">
+                @for (cartItem of cartItems(); track $index) {
+                    <app-cart-item [item]="cartItem" [editable]="editable"></app-cart-item>
+                }
+            </div>
+            <div class="checkout-template-right">
+                <div class="hide-mobile">
+                    <a mat-flat-button class="btn-flat btn-info" routerLink="/checkout/delivery">Valider mon panier</a>
+                </div>
+                <aside class="cart-page-checkout-summary">
+                    <h4 class="cart-page-checkout-summary-title">Récapitulatif</h4>
+                    <div class="cart-page-checkout-summary-body">
+                        <div class="cart-page-checkout-summary-quantity-price">
+                            <p>Produits <span class="cart-title-details">({{cartItemsNumber()}})</span></p>
+                            <span style="font-weight: 500; font-size: 1rem;">{{subTotal()}}&nbsp;€</span>
+                        </div>
+                        <div class="shipping-details">
+                            <div class="shipping-price-item">
+                                <p class="shipping-price-label">Livraison à domicile</p>
+                                <p class="shipping-price-value">7.99&nbsp;€</p>
+                            </div>
+                        </div>
+                        <div class="cart-page-checkout-summary-total">
+                            <p class="cart-page-checkout-summary-total-label">Total :</p>
+                            <p class="cart-total-price">{{totalPrice()}}&nbsp;€</p>
+                        </div>
+                    </div>
+                
+                </aside>
+             
+            </div>
+        </div>
+
+        <ng-template #noItems>
+            <div class="empty-cart">
+                <p>
+                    <span class="material-symbols-outlined">production_quantity_limits</span>
+                </p>
+                <p class="empty-cart-title">Votre panier est vide.</p>
+
+                <a routerLink="/" class="link">Continuer mes achats</a>
+            </div>
+        </ng-template>
+    </section>
+</div>

@@ -43,6 +43,7 @@ import { ConfirmationEmailNotificationComponent } from './auth/confirmation-emai
     DatePickerFormatDirective,
     ConfirmationEmailComponent,
     ConfirmationEmailNotificationComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

@@ -23,30 +23,45 @@
                 </div>
                 <div class="client-menu-nav">
                     <ul>
-                        <li>
-                            <a href="">
+                        <li class="nav-top-item">
+                            <a class="nav-top-link" href="">
                                 <span class="material-symbols-outlined">
                                     favorite
                                 </span>
                                 <span>Favories</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class="header-nav-link nav-top-item">
+                            <a class="nav-top-link" routerLink="/checkout/cart" >
                                 <span class="material-symbols-outlined">
                                     shopping_cart
                                 </span>
                                 <span>Panier</span>
                             </a>
+                            <span class="header-nav-link-badge" *ngIf="cartItemsNumber()">{{cartItemsNumber()}}</span>
                         </li>
-                        <li>
-                            <a routerLink="/auth/login">
+                        <li class="nav-top-item" *ngIf="!isLoggedIn; else loggedIn">
+                            <a class="nav-top-link" routerLink="/auth/login">
                                 <span class="material-symbols-outlined">
                                     person
                                 </span>
                                 <span>Se connecter</span>
                             </a>
                         </li>
+
+                        <ng-template #loggedIn>
+                            <li class="header-nav-account nav-top-item">
+                                <a class="nav-top-link">
+                                    <span class="material-symbols-outlined">
+                                        person
+                                    </span>
+                                    <span>Mon compte</span>
+                                </a>
+                                <span class="material-symbols-outlined logged-check">
+                                    check_circle
+                                </span>
+                            </li>
+                        </ng-template>
                     </ul>
                 </div>
             </div>

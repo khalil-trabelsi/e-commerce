@@ -7,10 +7,9 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
     const router = inject(Router);
     // const userRole = storageService.getUser().role.label
     const expectedRoles = route.data['roles'] as Array<string>
-    const currentUrl = state.url;
-
+    const currentUrl = state.url || state.toString().split(',').join('/');
     if (!storageService.isLoggedIn()) {
-        router.navigate(['/auth/login'], {queryParams: {location: currentUrl}});
+        router.navigate(['/auth/login'], {queryParams: {location: `/${currentUrl}`}});
         return false;
     }
     // if (expectedRoles.includes(userRole)) {

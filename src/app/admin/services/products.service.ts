@@ -34,4 +34,15 @@ export class ProductsService {
   getProductById(productId: number | string): Observable<any> {
     return this.httpClient.get<any>(`${this.apiUrl}/products/${productId}`)
   }
+
+
+  addProductReview(productId: number, userReview: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.apiUrl}/products/${productId}/review`, userReview)
+  }
+
+  getProductReviews(productId: number): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/products/${productId}/review`)
+  }
+
+  
 }

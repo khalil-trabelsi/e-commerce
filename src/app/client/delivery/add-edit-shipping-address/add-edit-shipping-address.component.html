@@ -1,0 +1,44 @@
+<h3 mat-dialog-title class="dialiog-title">
+    {{type()}}
+    @if (type() === 'create') {
+        Ajouter une adresse de livraison
+    } @else {
+        Modifier votre adresse de livraison
+    }
+</h3> 
+<mat-dialog-content class="dialog-content">
+    <form [formGroup]="shippingForm">
+        <div class="form-container">
+            <div class="form-group">
+                <input type="text" placeholder="Rue" name="street" 
+                    class="form-control" formControlName="street"
+                >
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Ville" name="city" 
+                    class="form-control" formControlName="city"
+                >
+            </div>
+
+            <div class="form-group">
+                <input type="text" placeholder="Code postale" name="postal"  
+                    class="form-control" formControlName="postal"
+                >
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Pays" name="country" 
+                    class="form-control" formControlName="country"
+                >
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end" >
+    <button mat-flat-button [disabled]="shippingForm.invalid" 
+        (click)="onSubmit()" [ngClass]="shippingForm.invalid ? 'btn' : 'btn btn-primary'">
+        Enregistrer
+    </button>
+    <button mat-dialog-close="" mat-flat-button class="btn btn-secondary" >Annuler</button>
+</mat-dialog-actions>

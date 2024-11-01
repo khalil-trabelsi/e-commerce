@@ -1,0 +1,26 @@
+<div class="product-reviews-container">
+    <div class="product-reviews-header">
+        <h3 class="product-reviews-title">Avis</h3>
+    </div>
+
+    <div class="product-reviews-body">
+        @if (productReviews().length) {
+            @for (review of productReviews(); track $index) {
+                <div class="reviews-comment">
+                    <p class="user-comment">{{review.username}}</p>
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i> <span class="review-number">{{review.rating}}</span>
+                    </div>
+                    <div class="product-reviews-details">
+                        <p>Avis postulé le {{review.date | date:'dd MMM YYYY':'Europe/Paris'}}</p>
+                    </div>
+                    <h4 class="product-reviews-subtitle">{{review.title}}</h4>
+                    <p class="product-reviews-description">{{review.comment}}</p>
+                </div>
+            }
+        } @else {
+            <p>Aucun commentaire pour le moment.</p>
+        }
+ 
+    </div>
+</div>

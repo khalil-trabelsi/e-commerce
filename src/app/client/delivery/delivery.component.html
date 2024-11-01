@@ -1,0 +1,119 @@
+<div class="checkout-template">
+    <div class="cart-title">
+        <h2>Votre mode de livraison</h2>
+    </div>
+    
+    <section class="checkout-template-container">
+        <div class="checkout-template-body">
+            <div class="checkout-template-left">
+                <div class="delivery-details">
+                    <h3>Livraison à domicile</h3>
+                    <form>
+                        <div class="form-group">
+                            <div>
+                                <input type="radio" id="standard" value="standard" name="shipping-type" class="shipping-type" [formControl]="shippingFormControl" >
+                                <label for="standard">Livraison standard</label>
+                            </div>
+                            <div class="fw-bold">
+                                <p>3.99€</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <input type="radio" id="express" value="express" name="shipping-type" class="shipping-type" [formControl]="shippingFormControl">
+                                <label for="express">Livraison express</label>
+                            </div>
+                            <div class="shipping-price">
+                                <p>7.99€</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="delivery-details">
+                    <h3>Détails de ma livraison à domicile</h3>
+                    <div>
+                        <div class="delivery-details-item">
+                            <div *ngIf="customerShippingAddressValid(); else addressNotFound">
+                                <p class="fw-bold">Adresse de livraison</p>
+                                <p>M. khalil Trabelsi</p> 
+                                <p>
+                                {{customerShippingAddress() | addressPipe}}
+                                </p>
+                            </div>
+                            <button mat-button matTooltip="Modifier votre adresse de livraison" (click)="editShippingAddress()">
+                                <span class="material-symbols-outlined">open_in_new</span>
+                            </button>
+                        </div>
+                        <ng-template #addressNotFound>
+                            <div class="delivery-details-item">
+                                <div>
+                                    <p class="fw-bold">Saisir votre adresse</p>
+                                </div>  
+                                <button mat-button matTooltip="Ajouter uen nouvelle adresse de livraison" (click)="addShippingAddress()">
+                                    <span class="material-symbols-outlined">open_in_new</span>
+                                </button>
+                            </div>
+                        </ng-template>  
+                    </div>
+                </div>
+            </div>
+            <div class="checkout-template-right">
+                <div class="hide-mobile">
+                    <a mat-flat-button class="btn-flat btn-info" routerLink="/checkout/delivery">Valider la livraison de ces produits</a>
+                </div>
+                <aside class="cart-page-checkout-summary">
+                    <div>
+                        <div class="cart-page-checkout-summary-product-details">
+                            <p class="cart-title">Produits <span class="cart-title-details">({{productsNumber()}})</span></p>
+                            <button class="btn btn-light" (click)="showHideProductDetails()">
+                                @if (showProductDetails()) {
+                                    Masquer
+                                } @else {
+                                    Détails
+                                }
+                            </button>
+                        </div>
+
+                        <div class="product-details" *ngIf="showProductDetails()">
+                            @for (cartItem of cartItems(); track $index) {
+                                <app-cart-item [item]="cartItem" [editable]="cartItemEditable"></app-cart-item>
+                            }
+                        </div>
+                    </div>
+                    <h4 class="cart-page-checkout-summary-title">Récapitulatif</h4>
+                    <div class="cart-page-checkout-summary-body">
+            
+                        <div class="shipping-details">
+                            <div class="shipping-price-item">
+                                <p class="shipping-price-label">Frais de livraison</p>
+                                <p class="shipping-price-value">7.99&nbsp;€</p>
+                            </div>
+                        </div>
+                        <div class="cart-page-checkout-summary-total">
+                            <p class="cart-page-checkout-summary-total-label">Total :</p>
+                            <p class="cart-total-price">{{totalPrice()}}&nbsp;€</p>
+                        </div>
+                    </div>
+
+                    <div class="cart-page-checkout-summary-body">
+            
+                        <div class="shipping-details">
+                            <div class="shipping-price-item">
+                                <p class="shipping-price-label">Adresse de facturation</p>
+                                <p class="shipping-price-value"></p>
+                            </div>
+                        </div>
+                        <div class="cart-page-checkout-summary-total">
+                            <p>
+                                {{customerShippingAddress() | addressPipe}}
+                            </p>
+                        </div>
+                    </div>
+                
+                </aside>
+             
+            </div>
+        </div>
+    </section>
+</div>

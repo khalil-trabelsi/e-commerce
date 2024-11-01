@@ -1,0 +1,36 @@
+<article>
+   <div class="cart-row-main">
+        <div class="cart-row-image">
+            <img [src]="itemMainImage().image_url" alt="">
+        </div>
+        <div class="cart-row-infos">
+            <a routerLink="/ref/{{item().product.id}}">
+                <h4 class="cart-row-infos-title">{{item().product.name}}</h4>
+            </a>
+            <span class="cart-row-infos-subtitle">Produit neuf</span>
+
+            
+        <div class="cart-row-quantity-price">
+            <div class="cart-row-quantity" *ngIf="editable(); else quantitytemplate">
+                <select name="" id="" [formControl]="quantity" (change)="updateProductQuantity()" >
+                    @for (item of [1,2,3,4,5,6,7,8,9,10]; track $index) {
+                        <option [value]="item">{{item}}</option>
+                    }
+                </select>
+                <button class="btn btn-danger" (click)="onRemove()">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+            <ng-template #quantitytemplate>
+                <div>
+                    x{{item().quantity}}
+                </div>
+            </ng-template>
+            <div class="cart-row-item-price" style="margin-top: 0.75em;">
+                <p>{{item().product.price}}&nbsp;€</p>
+            </div>
+        </div>
+        </div>
+
+   </div>
+</article>

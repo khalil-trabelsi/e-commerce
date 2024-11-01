@@ -20,7 +20,7 @@
                         </a>
                         <div class="card-footer">
                             <p class="price-value">{{product.price}} €</p>
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary" (click)="addToCart({product: product, quantity: 1})">
                                 <span class="material-symbols-outlined">add_shopping_cart</span>
                             </button>
                         </div>

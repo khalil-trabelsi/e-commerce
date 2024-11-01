@@ -42,6 +42,16 @@ export class CustomersService {
     this.refreshCustomersDataSubject.next();
   }
 
+  addShippingAddress(address: any) {
+    return this.httpClient.post<any>(`${this.apiUrl}/shipping`, address)
+  }
+  
+  editShippingAddress(customer_id: number, address: any) {
+    return this.httpClient.put<any>(`${this.apiUrl}/customers/${customer_id}/shipping_address`, address)
+  }
 
+  getShippingAddressByCustomerId(customerId: number) {
+    return this.httpClient.get<any>(`${this.apiUrl}/customers/${customerId}/shipping_address`)
+  }
 
 }
