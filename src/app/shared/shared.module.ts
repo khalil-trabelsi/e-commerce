@@ -14,6 +14,8 @@ import {MatListModule} from '@angular/material/list';
 @NgModule({
   declarations: [
     AutocompleteMultiselectComponent,
+    AddressPipe,
+    AutocompleteMultiselectComponent,
     AddressPipe
   ],
   imports: [

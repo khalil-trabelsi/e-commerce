@@ -18,7 +18,6 @@ import { DeliveryComponent } from './delivery/delivery.component';
 import { AddEditShippingAddressComponent } from './delivery/add-edit-shipping-address/add-edit-shipping-address.component';
 import { CustomerOrderComponent } from './account/customer-order/customer-order.component';
 import { AccountComponent } from './account/account.component';
-import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { SuccessPaymentComponent } from './success-payment/success-payment.component';
 
@@ -39,7 +38,6 @@ import { SuccessPaymentComponent } from './success-payment/success-payment.compo
     AddEditShippingAddressComponent,
     CustomerOrderComponent,
     AccountComponent,
-    OrderPaymentComponent,
     SuccessPaymentComponent,
   ],
   imports: [
