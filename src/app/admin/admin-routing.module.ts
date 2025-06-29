@@ -53,14 +53,12 @@ const routes: Routes = [
         component: ProductsComponent
       },
      {
-        path: 'chat',
+        path: 'room',
         component: ChatComponent,
-        children: [
-          {
-            path: ':id',
-            component: ChatConversationComponent
-          }
-        ]
+      },
+      {
+        path: 'room/chat/:id',
+        component: ChatConversationComponent
       },
       {
         path: 'collections',

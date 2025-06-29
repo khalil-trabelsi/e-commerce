@@ -26,6 +26,9 @@ export class CustomersService {
   editCustomer(customer: any) {
     return this.httpClient.put(`${this.apiUrl}/customers/${customer.id}`, customer);
   }
+  deleteCustomer(customerId: any): Observable<{customer_id: any}> {
+    return this.httpClient.delete<{customer_id: any}>(`${this.apiUrl}/customers/${customerId}`);
+  }
 
   activeCustomer(customerId: number) {
     return this.httpClient.put(`${this.apiUrl}/customers/${customerId}`, {status: 'active'});

@@ -1,12 +1,19 @@
 <div class="chat-room">
     <div class="card chat-wrapper">
-        <div class="card-header">
-            {{receiverId}}
+        <div class="card-header d-flex align-items-center justify-content-between p-1">
+            <div>
+                <strong>Sujet:</strong> {{chat?.subject}}
+                <div>
+                    <strong>De:</strong> {{receiver.email}}
+                </div> 
+            </div>                   
+            <span class="card-subtitle">
+                {{ chat?.created_at }}                        
+            </span>
         </div>
-        <div class="card-body discussion-row">
+        <div #chatContainer class="card-body discussion-row">
             <ul class="d-flex flex-column gap-2">
-                <!-- chatWS.messages() -->
-                <li *ngFor="let msg of chatWS.messages()" 
+                <li *ngFor="let msg of messages" 
                     class="message" 
                     [class.sent-message]="msg.sender_id === senderId"
                     [class.received-message]="msg.sender_id !== senderId">

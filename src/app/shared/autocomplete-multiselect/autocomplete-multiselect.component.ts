@@ -1,7 +1,8 @@
-import { Component, computed, EventEmitter, input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, computed, EventEmitter, input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { toSignal } from "@angular/core/rxjs-interop"
 import { Subject, takeUntil } from 'rxjs';
+import { MatSelect } from '@angular/material/select';
 
 
 @Component({
@@ -20,6 +21,9 @@ export class AutocompleteMultiselectComponent implements OnInit, OnDestroy {
   searchKey = toSignal(this.searchFormControl.valueChanges, {initialValue: ''});
   selectAll = new FormControl(false);
   selectedOptionsControl = new FormControl<any[]>([]);
+  required = input(false)
+
+  @ViewChild('select') matAutoComplete!: MatSelect; 
 
   multiple = input.required<boolean>();
 
@@ -47,7 +51,7 @@ export class AutocompleteMultiselectComponent implements OnInit, OnDestroy {
         
         this.toolTip = this.filteredOptions().filter(item => this.selectedOptionsControl.value && Array.isArray(this.selectedOptionsControl.value) && this.selectedOptionsControl.value.includes(item[this.optionId()]) )
         .map(item => item[this.key()]).join(', ');
-        
+        this.matAutoComplete.close()
         this.selectedOptions.emit({selectedOptions: data, type: this.type()});
       }
       

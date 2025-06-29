@@ -31,7 +31,7 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     context = this;
 
     autoSizeStrategy: SizeColumnsToContentStrategy | SizeColumnsToFitGridStrategy | SizeColumnsToFitProvidedWidthStrategy = {
-      type: 'fitCellContents'
+      type: 'fitGridWidth'
     }
 
     colDefs: ColDef[] = [
@@ -78,7 +78,6 @@ export class SuppliersComponent implements OnInit, OnDestroy {
       {
         headerName: 'Action',
         cellRenderer: CustomGridActionComponent,
-        pinned: 'right'
       }
     ]
 

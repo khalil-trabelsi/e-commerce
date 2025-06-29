@@ -1,13 +1,13 @@
 import { Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { ChatWsService } from '../../services/chat-ws.service';
 import { UsersService } from '../../services/users.service';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup } from '@angular/forms';
 import { StorageService } from '../../helpers/storage.service';
-import { map, pipe, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { filter, Subject, switchMap, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
-
+import { CustomerOrderService } from '../../services/customer-order.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddConversationDialogComponent } from '../dialogs/add-conversation-dialog/add-conversation-dialog.component';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -19,18 +19,18 @@ export class ChatComponent implements OnInit, OnDestroy {
   filteredUsers: User[] = [];
   inputMessage = ''
   senderId = this.storageService.getUser()?.id;
-  receiverId= new FormControl('')
-  messages: any[] = [{'senderId': 82, 'receiverId': 116, 'content': 'Ok fuck you !!'}, {'senderId': 116, 'receiverId': 82, 'content': 'merci !!'}];
-  form: FormGroup = new FormGroup({
-    receiverId: this.receiverId
-  })
+  receiverId: any;
   userSearch: string = '';
+  orders: any[] = []
+  chatHistory!: any;
 
   constructor(
     public chatWS: ChatWsService,
     public userServices: UsersService,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private customerOrderService: CustomerOrderService,
+    private matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -40,14 +40,17 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.filteredUsers = this.users
         }
       )
+      this.customerOrderService.getAllOrders()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        orders => this.orders = orders
+      )
+      this.loadChatHistory()
   }
 
-  startConversation(receiverId?: number) {
-    this.chatWS.createChat([this.senderId, receiverId]).pipe(takeUntil(this.destroy$)).subscribe(
-      chat => {
-       this.router.navigateByUrl(`admin/chat/${chat.id}?receiverId=${receiverId}`)
-      }
-    )
+  loadChatHistory(page = 1) {
+    this.chatWS.getAllChats(page).pipe(takeUntil(this.destroy$))
+      .subscribe(history => this.chatHistory = history)
   }
 
   filterUsers(event: Event) {
@@ -58,6 +61,31 @@ export class ChatComponent implements OnInit, OnDestroy {
       user.username?.includes(this.userSearch)
     )
     console.log(this.filteredUsers)
+  }
+
+  getSelectedOptions(event: any) {
+    console.log(event)
+  }
+
+  openNewConversationDialog() {
+    const ref = this.matDialog.open(AddConversationDialogComponent, {
+      width: '45vw',
+      data: {
+        users: this.users
+      }
+    })
+
+    ref.afterClosed().pipe(
+      takeUntil(this.destroy$), 
+      filter(result => result),
+      switchMap(result => this.chatWS.createChat(
+        {subject: result.subject, message: result.message, participants: [ this.senderId, result.receiver_id] }
+      ))
+    ).subscribe(
+      _ => {
+        this.loadChatHistory()
+      }
+    )    
   }
 
   ngOnDestroy(): void {

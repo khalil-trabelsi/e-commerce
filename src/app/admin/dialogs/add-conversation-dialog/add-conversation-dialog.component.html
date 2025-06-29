@@ -1,0 +1,25 @@
+  <h2 mat-dialog-title class="dialiog-title">New conversation</h2>
+  <mat-dialog-content class="dialog-content d-flex flex-column gap-3">
+    <mat-form-field>
+      <mat-label>Objet </mat-label>
+      <input matInput placeholder="Subject" required [autocomplete]="false" [(ngModel)]="object">
+    </mat-form-field>
+    <app-autocomplete-multiselect
+      [options]="users"
+      [required]="true"
+      key="email"
+      optionId="id"
+      label="A"
+      type="utilisateurs"
+      (selectedOptions)="getSelectedOptions($event)"
+      [multiple]="true">
+    </app-autocomplete-multiselect>
+    <mat-form-field>
+      <mat-label>Message</mat-label>
+    <textarea [(ngModel)]="message" [autocomplete]="false" matInput placeholder="Ex. It makes me feel..." required></textarea>
+  </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions class="d-flex justify-content-between align-items-center">
+    <button mat-flat-button class="btn-secondary" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" cdkFocusInitial (click)="addConversation()">Create</button>
+  </mat-dialog-actions>

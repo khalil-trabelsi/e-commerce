@@ -38,6 +38,7 @@
                                 </span>
                                 <span class="nav-top-title">Panier</span>
                             </a>
+                            <span class="header-nav-link-badge" *ngIf="cartItemsNumber()">{{cartItemsNumber()}}</span>                            
                         </li>
                         <li class="nav-top-item" *ngIf="!isLoggedIn; else loggedIn">
                             <a class="nav-top-link" routerLink="/auth/login">

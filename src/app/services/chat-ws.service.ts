@@ -1,9 +1,10 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Injectable, NgZone, signal, WritableSignal } from '@angular/core';
 import { Socket, io } from 'socket.io-client';
 import { environment } from '../../environments/environment.development';
 import { StorageService } from '../helpers/storage.service';
-import { fromEvent, Observable, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { fromEvent, map, Observable, Subject, tap, timestamp } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { DateFormattingService } from '../helpers/date-formatting.service';
 
 export interface ChatMessage {
   content: string,
@@ -20,19 +21,17 @@ export class ChatWsService {
   private socket!: any;
   connectedUsers: WritableSignal<any[]> = signal([])
   messages: WritableSignal<ChatMessage[]> = signal([])
-  numConnectedUsers = signal(0)
+  numConnectedUsers = signal(0);
+  receivedMessage = new Subject<any>();
 
   constructor(
     private storageService: StorageService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private dateFormattingService: DateFormattingService,
+    private ngZone: NgZone
   ) {
     this.initializeWS();
-    this.onConnectedUser().subscribe(
-        (users) => this.connectedUsers.set(users)
-    )
-    this.onReceivedMessage().subscribe(
-        (message) =>  this.updateMessages(message)
-        ) 
+
   }
 
   updateMessages(newMessage: any) {
@@ -61,19 +60,18 @@ export class ChatWsService {
       console.log(`Connected users: ${num}`)
         this.numConnectedUsers.set(num)
       })
+      
+    this.socket.on('message_received', (data: any ) => {
+      console.log(data)
+      this.receivedMessage.next(data)
+    })  
 
    }
 
    onConnectedUser() {
     return fromEvent(this.socket, 'connected_user') as Observable<any>;
    }
-   onReceivedMessage() {
-    return fromEvent(this.socket, 'message_received') as Observable<ChatMessage>;
-   }
 
-   onConnect() {
-    return fromEvent(this.socket, 'connect') as Observable<any>
-   }
 
    sendMessage(payload: {content: string, sender_id: any, receiver_id: any, chat_id: any}) {
     this.socket.emit('new_message', payload)
@@ -84,10 +82,36 @@ export class ChatWsService {
    }
 
 
-   createChat(participants: Array<number>): Observable<any> {
-    return this.httpClient.post<any>(`${environment.apiUrl}/chat`, participants).pipe(tap(chat => {
+   createChat(payload: {subject: string, message: string, participants: any[]}): Observable<any> {
+    return this.httpClient.post<any>(`${environment.apiUrl}/chatroom/chat`, payload).pipe(tap(chat => {
       console.log(chat);
       this.messages.set(chat.messages.sort((a: any, b: any)=>  a.timestamp && b.timestamp ?  a.timestamp.localeCompare(b.timestamp) : 0))
     }))
+   }
+
+
+   createChatRoom(participants: Array<number>) {
+    return this.httpClient.post<any>(`${environment.apiUrl}/chatroom`, participants).pipe(
+      tap(chat => {
+        console.log(chat);
+    }))
+   }
+
+   getAllChats(page = 1): Observable<any[]> {
+    const options = {
+      params: new HttpParams().set('page', page)
+    }
+    return this.httpClient.get<any[]>(`${environment.apiUrl}/chatroom/chat`, options);
+   }
+
+   getChat(id: number) {
+    return this.httpClient.get<any>(`${environment.apiUrl}/chatroom/chat/${id}`).pipe(
+      map(chat => {
+        return {
+          ...chat,
+          messages: chat.messages.sort((a: any, b: any)=>  a.timestamp && b.timestamp ?  a.timestamp.localeCompare(b.timestamp) : 0) 
+        }
+      })
+    )
    }
 }

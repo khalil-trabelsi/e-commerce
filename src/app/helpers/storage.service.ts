@@ -13,16 +13,16 @@ export class StorageService {
   constructor() { }
 
   clean() {
-    window.sessionStorage.clear()
+    window.localStorage.clear()
   }
 
   saveUser(user: any) {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user))
+    window.localStorage.removeItem(USER_KEY);
+    window.localStorage.setItem(USER_KEY, JSON.stringify(user))
   }
 
   getUser() {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    const user = window.localStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user);
     }
@@ -31,35 +31,35 @@ export class StorageService {
   }
 
   getCurrentUsername() {
-    const user = JSON.parse(window.sessionStorage.getItem(USER_KEY)!);
+    const user = JSON.parse(window.localStorage.getItem(USER_KEY)!);
     return user.username ? user.username : `${user.first_name} ${user.last_name}`
   }
 
   getCurrentUserEmail() {
-    const user = JSON.parse(window.sessionStorage.getItem(USER_KEY)!);
+    const user = JSON.parse(window.localStorage.getItem(USER_KEY)!);
     return user ? user.email : '';
   }
 
   saveToken(token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token)
+    window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.setItem(TOKEN_KEY, token)
   }
 
   getToken(): string | null {
-    return window.sessionStorage.getItem(TOKEN_KEY)
+    return window.localStorage.getItem(TOKEN_KEY)
   }
 
   saveRefreshToken(token: string): void {
-    window.sessionStorage.removeItem(REFRESHTOKEN_KEY);
-    window.sessionStorage.setItem(REFRESHTOKEN_KEY, token)
+    window.localStorage.removeItem(REFRESHTOKEN_KEY);
+    window.localStorage.setItem(REFRESHTOKEN_KEY, token)
   }
 
   getRefreshToken(): string | null {
-    return window.sessionStorage.getItem(REFRESHTOKEN_KEY)
+    return window.localStorage.getItem(REFRESHTOKEN_KEY)
   }
 
   isLoggedIn(): boolean {
-    return window.sessionStorage.getItem(USER_KEY) ? true : false;
+    return window.localStorage.getItem(USER_KEY) ? true : false;
   }
   
 }

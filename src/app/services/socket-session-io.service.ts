@@ -16,6 +16,7 @@ export class SocketSessionIOService implements OnDestroy {
   private destroy$ = new Subject<void>();
   private connectedSubject = new BehaviorSubject(false);
   connected$ = this.connectedSubject.asObservable();
+  queue: any[] = []
 
   apiUrl = environment.apiUrl;
   private socket!: Socket | null | undefined;
@@ -24,13 +25,15 @@ export class SocketSessionIOService implements OnDestroy {
     private ngZone: NgZone,
     private toastrService: ToastrService,
     private store: Store<AppState>,
-    private storageService: StorageService
+    private httpClient: HttpClient
     
 
   ) { 
-    this.intializeWSConnection();
-    this.setupConnectionHandlers()
+    this.getSession()
+  }
 
+  addToQueue(data: {event: string, payload: any[]}) {
+    this.queue.push(data)
   }
   setupConnectionHandlers() {
     if (this.socket) {
@@ -44,23 +47,28 @@ export class SocketSessionIOService implements OnDestroy {
         console.log('disconnecting')
       })
 
-
       this.socket.on('reconnect', (attempt: any) => {
         console.log('reconnecting attempy ' + attempt)
+        if (!this.socket?.connected) {
+          this.reconnect();
+        }  
       })
-  
-      this.socket.on('connect_error', (reason: any) => {
-        console.error('Socket connection error:', reason);
+      this.socket.on('reconnect_attempt', (attempt: any) => {
+        console.log('reconnecting attempt ' + attempt)
         if (!this.socket?.active) {
+          console.log(this.socket?.active)
           console.log('Trying to reconnect...')
           this.reconnect();
-        }
+        }  
+      })
+  
+      this.socket.on('connect_error', (err: any) => {
       });
       
       this.socket.onAny((eventName, ...args) => {
       console.log(`DEBUG - Event received: ${eventName}`, args);
       });
-
+   
       this.socket.on('new_order', (newOrder: any) => {
         console.log('New order created')
         console.log(newOrder)
@@ -72,50 +80,37 @@ export class SocketSessionIOService implements OnDestroy {
     }
 
   }
-  intializeWSConnection() {
-    const jwt = this.storageService.getToken();
-    this.socket = io(`${environment.apiUrl}/admin`, {
-      forceNew: false,
-      transports: ['websocket'],
-      multiplex: true,
-      reconnection: true,
-      reconnectionAttempts: 5,
-      upgrade: true,
-      auth: {
-        token: jwt,
-        userId: this.storageService.getUser().id
-      }
-    });
-  }
+
 
   emitMessage() {
     this.socket?.emit('test')
   }
 
-  disconnect() {
-    if (this.socket) {
-      this.socket.off('connect');
-      this.socket.off('disconnect');
-      this.socket.disconnect();   
-      this.connectedSubject.next(false)
-     }
-  }
-
   public reconnect() {
+    console.log('reconnect')
     if (this.socket) {
       console.log('Destroying socketio connection');
-      // this.socket.io.off()
-      
+      this.socket.io.off('close');
+      this.socket.io.off('open')
+      this.socket.io.off('reconnect')
+      this.socket.io.off('reconnect_attempt')
+      this.socket.disconnect();
+      this.socket = null;
     }
+    this.getSession()
+  }
 
-    this.intializeWSConnection();
+  getSession() {
+    this.socket = io(`${environment.apiUrl}/admin`, {
+      transports: ['websocket'],
+    });
+    this.setupConnectionHandlers()
   }
 
   ngOnDestroy(): void {
     console.log('destroying service')
     this.destroy$.next();
     this.destroy$.complete();
-    this.disconnect()
   }
 
 }

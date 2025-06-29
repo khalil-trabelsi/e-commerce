@@ -12,6 +12,7 @@ export class DateFormattingService {
 
 
   formatDateToTimestampString(date: Date) {
+    console.log(formatDate(date, 'yyyy-MM-dd HH:mm:ss', this.locale))
     return formatDate(date, 'yyyy-MM-dd HH:mm:ss', this.locale)
   }
 

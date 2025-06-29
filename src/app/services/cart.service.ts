@@ -24,6 +24,7 @@ export class CartService {
   
   addToCart(cartItem: CartItem) {
     const existingItem = this.cartItems().find(item => item.product.id === cartItem.product.id);
+    console.log(existingItem)
     if (existingItem) {
       existingItem.quantity = cartItem.quantity;
       this.cartItems.update(items => [...items])

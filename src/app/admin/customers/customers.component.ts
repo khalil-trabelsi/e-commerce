@@ -16,6 +16,8 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/app.store';
 import { selectCustomersEntitiesConverted$, selectCustomersLoading$ } from '../../store/selectors/customer.selector';
 import { CustomerModule } from '../../store/actions/customer.action';
+import { ColDef, SizeColumnsToContentStrategy, SizeColumnsToFitGridStrategy, SizeColumnsToFitProvidedWidthStrategy } from 'ag-grid-community';
+import { ActionsCellComponent } from './actions-cell/actions-cell.component';
 
 @Component({
   selector: 'app-customers',
@@ -27,6 +29,46 @@ export class CustomersComponent implements OnInit, AfterViewInit,OnDestroy {
   
   customers$!: Observable<Customer[]>;
   customersLoading$!: Observable<boolean>;
+  
+  autoSizeStrategy: SizeColumnsToContentStrategy | SizeColumnsToFitGridStrategy | SizeColumnsToFitProvidedWidthStrategy = {
+      type: 'fitGridWidth'
+    }
+
+  colDefs: ColDef[] = [
+    {
+      headerName: 'Id',
+      field: 'id'
+    },
+    {
+      headerName: 'first name',
+      field: 'first_name'
+    },
+        {
+      headerName: 'last name',
+      field: 'last_name'
+    },
+    {
+      headerName: 'email',
+      field: 'email'
+    },
+    {
+      headerName: 'gender',
+      field: 'gender'
+    },
+    {
+      headerName: 'status',
+      field: 'status'
+    },
+        {
+      headerName: 'Actions',
+      cellRenderer: ActionsCellComponent
+    },
+  ]
+
+  defaultColDef: ColDef = {
+    sortable: true,
+    filter: true
+  }
 
   showDropdownMenu = signal(false)
   currentItemClicked = signal(-1)

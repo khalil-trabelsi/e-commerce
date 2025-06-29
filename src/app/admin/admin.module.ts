@@ -27,6 +27,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatConversationComponent } from './chat/chat-conversation/chat-conversation.component';
+import { ActionsCellComponent } from './customers/actions-cell/actions-cell.component';
+import { AddConversationDialogComponent } from './dialogs/add-conversation-dialog/add-conversation-dialog.component';
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import { ChatConversationComponent } from './chat/chat-conversation/chat-convers
     BrandsComponent,
     AddEditBrandDialogComponent,
     AddEditCategoryDialogComponent,
+    AddConversationDialogComponent,
     CustomersComponent,
     AddEditProductDialogComponent,
     StockMovementsComponent,
@@ -50,7 +53,8 @@ import { ChatConversationComponent } from './chat/chat-conversation/chat-convers
     OrdersComponent,
     DashboardComponent,
     ChatComponent,
-    ChatConversationComponent
+    ChatConversationComponent,
+    ActionsCellComponent,
 
   ],
   imports: [

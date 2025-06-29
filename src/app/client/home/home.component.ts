@@ -23,6 +23,7 @@ export class HomeComponent {
 
 
   addToCart(item: CartItem) {
+    console.log(item)
     this.cartService.addToCart(item)
   }
 

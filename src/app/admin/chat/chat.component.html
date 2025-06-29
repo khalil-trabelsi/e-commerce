@@ -1,4 +1,39 @@
-<div class="chat-container">
+<!-- <div class="chat-container">
+
+    <div class="list-of-users">
+        <div class="card">
+            <div class="card-header text-white">
+                <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="userSearch" (keyup)="filterUsers($event)"/>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <ng-container *ngIf="filteredUsers.length; else noContent">
+                        <li *ngFor="let user of filteredUsers" class="user list-group-item" [ngClass]="{'user-active': user.id == receiverId}">
+                            <div class="profile-info btn" (click)="startConversation(user.id)">
+                                <img src="../../../assets/person-logo.png" alt="profile logo" class="profile-pic" matToolTip="user logo">
+                                <div class="btn user-info">
+                                        <span class="user-info-name">{{ user.first_name }}</span>
+                                        <span class="user-info-email">{{user.email}}</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ng-container>
+                    <ng-template #noContent>
+                        <li>No data found</li>
+                    </ng-template>
+                </ul>
+            </div>
+        </div>
+  
+    </div>
+    <div class="chat-room-container">
+    </div>
+
+    <router-outlet></router-outlet>
+</div> -->
+
     <!-- <div class="list-of-users">
         Connected users   {{chatWS.numConnectedUsers() | json}}
         <form [formGroup]="form">
@@ -10,28 +45,93 @@
         </form>
       
     </div> -->
-    <div class="list-of-users">
-        <div class="card">
-            <div class="card-header p-2 bg-primary text-white">
-                <div class="form-group">
-                    <input type="text" class="form-control" [(ngModel)]="userSearch" (keyup)="filterUsers($event)"/>
-                </div>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    <li *ngFor="let user of filteredUsers" class="user list-group-item" >
-                        <div class="profile-info btn" (click)="startConversation(user.id)">
-                            <img src="../../../assets/person-logo.png" alt="profile logo" class="profile-pic" matToolTip="user logo">
-                            <button class="btn user-info">
-                                    <span class="user-info-name">{{ user.first_name }}</span>
-                                    <span class="user-info-email">{{user.email}}</span>
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+<div class="dash-container">
+    <section class="dash-title d-flex align-items-center justify-content-between">
+        <h1>Messages et demandes</h1>
+        <button class="btn-add btn-primary" (click)="openNewConversationDialog()">
+            <span class="material-symbols-outlined">
+                edit
+            </span>
+            Nouvelle conversation
+        </button>        
+    </section>
+    <div class="card">
+        <div class="card-body">
+            <form class="d-flex p-2 gap-2 align-items-center justify-content-center">
+                <app-autocomplete-multiselect
+                    [options]="users"
+                    key="email"
+                    optionId="id"
+                    label="Utilisateurs"
+                    type="utilisateurs"
+                    (selectedOptions)="getSelectedOptions($event)"
+                    [multiple]="true">
+                </app-autocomplete-multiselect>
+                <app-autocomplete-multiselect
+                    [options]="orders"
+                    key="reference"
+                    optionId="id"
+                    label="Orders"
+                    type="orders"
+                    (selectedOptions)="getSelectedOptions($event)"
+                    [multiple]="true">
+                </app-autocomplete-multiselect>
+                <mat-form-field>
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>   
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                        <mat-select matNativeControl>
+                            <mat-option value="volvo">All</mat-option>
+                            <mat-option value="saab">consultées</mat-option>
+                            <mat-option value="mercedes">no consultées</mat-option>
+                        </mat-select>
+                </mat-form-field>
+                <button mat-flat-button color="primary">rechercher</button>
+                <button mat-flat-button color="warn">clear</button>                   
+            </form>
         </div>
   
     </div>
-    <router-outlet></router-outlet>
-</div>
+    <div class="row" *ngIf="chatHistory">
+        <div class="col-md-12 mb-2" *ngFor="let chat of chatHistory.chats">
+  
+            <div class="card" style="max-height: 120px; height: 120px;">
+                <div class="card-body">
+                    <h6 style="font-size: 0.8rem;" class="card-subtitle mb-2 text-body-secondary text-muted">
+                        <strong>Started At:</strong> {{ chat.created_at | date:"yyyy/MM/dd hh:mm"}}                        
+                    </h6>
+                    <a style="font-size: 1.1rem;" class="card-link" [routerLink]="['/admin/room/chat/'+chat.id]">
+                        <strong>Sujet:</strong> {{chat.subject}}
+                    </a>
+                    <h5 style="font-size: 0.9rem;" class="card-title">
+                        <strong>De:</strong>
+                        @if (chat.participants[0].first_user.id != senderId) {
+                            {{chat.participants[0].first_user.email}}
+                        } @else {
+                             {{chat.participants[0].second_user.email}}
+                            }
+                    </h5>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer d-flex align-items-center justify-content-center gap-2">
+        <button (click)="loadChatHistory(chatHistory?.pagination?.prev_num)" class="btn btn-outline-primary" [ngClass]="{'disabled': !chatHistory?.pagination?.has_prev}">
+            <span style="font-size: 2.1rem;" class="material-symbols-outlined">
+                keyboard_double_arrow_left
+            </span>
+        </button>
+        <span class="h6">{{chatHistory?.pagination?.page}}</span>
+        <button (click)="loadChatHistory(chatHistory?.pagination?.next_num)" class="btn btn-outline-primary" [ngClass]="{'disabled': !chatHistory?.pagination.has_next}">
+            <span style="font-size: 2.1rem;" class="material-symbols-outlined">
+                keyboard_double_arrow_right
+            </span>
+        </button>
+    </div>
+</div>    

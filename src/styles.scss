@@ -530,10 +530,11 @@ body {
 }
 
 .overlay-panel {
-    width: fit-content !important;
+    // width: fit-content !important;
     position: relative !important;
     top: -45px;
     min-width: 275px;
+    overflow-wrap: break-word !important;
 }
 
 .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
@@ -557,64 +558,6 @@ body {
 .description-control {
     grid-column: 1 / span 2;
 }
-
-
-
-
-// Table styles
-
-// .table-container {
-//     background-color: #fffb;
-//     border-radius: .6rem;
-//     width: 95%;
-//     max-height: calc(100vh - 300px);
-//     overflow: auto;
-//     table {
-//         width: 100%;
-//     }
-
-//     thead th {
-//         position: sticky;
-//         top: 0;
-//         left: 0;
-//         color: rgba(255, 255, 255, 0.8);
-//         padding: 1.2rem 0.75rem;
-//         background-color: #023047;
-//         z-index: 99;
-//     }
-
-//     table, th, td {
-//         border-collapse: collapse;
-//         padding: 0.75rem;
-//         border-color:#ddd;
-//         text-align: left;
-//     }
-//     tbody {
-//         tr {
-//             &:nth-child(even) {
-//                 background-color: rgba(206, 212, 218, 0.741);
-//             };
-//             &:hover {
-//                 background-color: #ced4da;
-//             }
-//         }
-//     }
-
-//     &::-webkit-scrollbar {
-//         width: 0.5rem;
-//         height: 0.5rem;
-//     }
-    
-//     &::-webkit-scrollbar-thumb {
-//         border-radius: .5rem;
-//         background-color: #0004;
-//         visibility: hidden;
-//     }
-    
-//     &:hover::-webkit-scrollbar-thumb {
-//         visibility: visible;
-//     }
-// }
 
 
 .status {
@@ -831,3 +774,6 @@ body {
     font-size: 1.1rem;
 }
 
+.btn-check:focus+.btn-outline-primary, .btn-outline-primary:focus {
+    box-shadow: none !important;
+}
