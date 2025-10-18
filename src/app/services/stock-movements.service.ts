@@ -11,7 +11,7 @@ export class StockMovementsService {
   private refreshStockMovements$$ = new Subject<void>()
   refreshStockMovements$ = this.refreshStockMovements$$.asObservable()
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/api`;
 
   constructor(
     private httpClient: HttpClient

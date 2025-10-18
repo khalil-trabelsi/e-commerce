@@ -23,11 +23,18 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.totalRequest++;
     this.loadingService.setLoading(true)
-    const jwt = this.storageService.getToken();
+    const jwt = this.storageService.getAccessToken();
+    const isAuthRequest =
+      req.url.includes('/auth/login') ||
+      req.url.includes('/auth/refresh_token') ||
+      req.url.includes('/auth/register') ||
+      req.url.includes('/auth/logout');
     let newRequest = req.clone({withCredentials: true});
-    if (jwt) {
+    if (jwt && !isAuthRequest) {
       newRequest = this.addTokenHeader(req, jwt);
     } 
+
+    console.log(newRequest)
  
       return next.handle(newRequest).pipe(
         catchError((err: any) => {
@@ -47,7 +54,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
             } else if (err.error.error) {
               errMsg = err.error.error;
             } else {
-              errMsg = err.error;
+              errMsg = JSON.stringify(err);
             }
             this.dialog.open(ErrorDialogComponent, {
               width: '450px',
@@ -70,19 +77,22 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-
+    console.log("handle 401 error")
+    console.log(this.isRefreshing)
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
       return this.authService.refreshToken()
       .pipe(
-        switchMap(value => {
+        switchMap(response => {
           this.isRefreshing = false;
-          this.storageService.saveToken(value.token);
-          return next.handle(this.addTokenHeader(request, value.token));
+          this.refreshTokenSubject.next(response.token);
+          this.storageService.saveAccessToken(response.token);
+          return next.handle(this.addTokenHeader(request, response.token));
           
         }),
         catchError((err: any)=> {
+          console.log(err)
           this.isRefreshing = false;
           this.authService.logout()
           return throwError(() => err)
@@ -100,7 +110,6 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   private addTokenHeader(request: HttpRequest<any>, token: string) {
     return request.clone({ headers: request.headers.set("Authorization", "Bearer " + token), withCredentials: true });
   }
- 
   
 }
 

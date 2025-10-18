@@ -39,5 +39,5 @@
         (click)="onSubmit()" [ngClass]="shippingForm.invalid ? 'btn' : 'btn btn-primary'">
         Enregistrer
     </button>
-    <button mat-dialog-close="" mat-flat-button class="btn btn-secondary" >Annuler</button>
+    <button [mat-dialog-close]="false" mat-flat-button class="btn btn-secondary" >Annuler</button>
 </mat-dialog-actions>

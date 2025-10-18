@@ -25,7 +25,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SharedModule } from './shared/shared.module';
 import { ConfirmationEmailComponent } from './auth/confirmation-email/confirmation-email.component';
 import { ConfirmationEmailNotificationComponent } from './auth/confirmation-email-notification/confirmation-email-notification.component';
-import { ToastrModule } from './toastr/toastr.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { appEffects, getReducers, REDUCER_TOKEN } from './store/app.store';
@@ -58,7 +57,6 @@ const config = { url: environment.apiUrl, options: {} }
     MatMomentDateModule,
     SharedModule,
     AppRoutingModule,
-    ToastrModule,
     StoreModule.forRoot(REDUCER_TOKEN),
     EffectsModule.forRoot(appEffects)
   ],

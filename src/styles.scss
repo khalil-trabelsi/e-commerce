@@ -55,7 +55,7 @@ a {
 
 html, body { height: 100%; }
 body { 
-    font-family: Poppins, Helvetica,"sans-serif";
+    font-family: 'Exo', 'Poppins', Helvetica,"sans-serif";
     color: #333;
     font-size: 12px;
     line-height: 1.42857143;
@@ -188,12 +188,12 @@ body {
     gap: 15px
 }
 
-.btn {
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 4px 5px;
-    border: 1px solid transparent;
-}
+// .btn {
+//     border-radius: 6px;
+//     cursor: pointer;
+//     padding: 4px 5px;
+//     border: 1px solid transparent;
+// }
 
 
 .btn-add {
@@ -256,11 +256,11 @@ body {
     color: var(--color-warning);
 }
 
-.btn-primary {
-    background-color: #007bff !important;
-    color: #fff !important;
+// .btn-primary {
+//     background-color: #007bff !important;
+//     color: #fff !important;
 
-}
+// }
 
 .btn-blue {
     background-color: var(--color-primary) !important;
@@ -412,8 +412,8 @@ body {
 
 @media screen and (max-width: 767px)  {
   .client-container {
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: 0;
+    padding-left: 0;
 }  
 }
 
@@ -509,7 +509,6 @@ body {
         align-items: center;
         gap: 10px;
         font-size: 16px;
-        font-weight: 600;
     }
 
 }

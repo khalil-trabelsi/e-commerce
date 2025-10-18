@@ -1,6 +1,4 @@
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
-import { UsersService } from '../../services/users.service';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditUserDialogComponent } from '../dialogs/add-edit-user-dialog/add-edit-user-dialog.component';
 import { CustomersService } from '../../services/customers.service';
@@ -11,7 +9,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { AddEditCustomerComponent } from '../dialogs/add-edit-customer/add-edit-customer.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { ToastrService } from '../../toastr/toastr.service';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../store/app.store';
 import { selectCustomersEntitiesConverted$, selectCustomersLoading$ } from '../../store/selectors/customer.selector';
@@ -85,7 +82,6 @@ export class CustomersComponent implements OnInit, AfterViewInit,OnDestroy {
     private customersService: CustomersService,
     private dialog: MatDialog,
     private notificationService: NotificationService,
-    private toastrService: ToastrService,
     private store: Store<AppState>
   ) {
     this.customers$ = store.pipe(select(selectCustomersEntitiesConverted$));
@@ -97,7 +93,6 @@ export class CustomersComponent implements OnInit, AfterViewInit,OnDestroy {
 
       this.customers$.pipe(takeUntil(this.destroy$)).subscribe(
         data => {
-          console.log(data.length);
           this.dataSource.data = data
         }
       )
@@ -124,7 +119,7 @@ export class CustomersComponent implements OnInit, AfterViewInit,OnDestroy {
       map(new_user => this.store.dispatch(new CustomerModule.LoadCreatCustomer(new_user))), 
       takeUntil(this.destroy$)
     ).subscribe(
-      _ =>  this.toastrService.openToastr('Customer successfully created', 'success')
+      _ =>  console.log('Customer successfully created', 'success')
     )
 
   }

@@ -12,7 +12,7 @@ export class ClientService {
 
   clientSecret$ = this.clientSecretSubject.asObservable()
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/api`;
 
   constructor(
     private httpClient: HttpClient

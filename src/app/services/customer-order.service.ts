@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CustomerOrderService {
-  apiUrl = environment.apiUrl;
+  apiUrl = `${environment.apiUrl}/api`;
   constructor(
     private httpClient: HttpClient
   ) { }
@@ -27,7 +27,7 @@ export class CustomerOrderService {
   }
 
   getOrdersByCustomerId(customerId: number): Observable<CustomerOrder[]> {
-    return  this.httpClient.get<CustomerOrder[]>(`${this.apiUrl}/customers/${customerId}/orders`)
+    return  this.httpClient.get<CustomerOrder[]>(`${this.apiUrl}/users/${customerId}/orders`)
   }
 
   saveOrder(order: CustomerOrder): Observable<CustomerOrder> {

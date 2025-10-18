@@ -11,7 +11,7 @@ export class CollectionService {
   private refreshCollectionData$$ = new Subject<void>();
   public  refreshCollectionData$ = this.refreshCollectionData$$.asObservable()
 
-  private apiUrl = environment.apiUrl
+  private apiUrl = `${environment.apiUrl}/api`
 
   constructor(
     private httpClient: HttpClient

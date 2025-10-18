@@ -10,6 +10,7 @@ import { CustomerOrderComponent } from './account/customer-order/customer-order.
 import { AccountComponent } from './account/account.component';
 import { userPaymentDetailResolver } from './resolvers/user-payment-detail.resolver';
 import { SuccessPaymentComponent } from './success-payment/success-payment.component';
+import { CustomerProfileComponent } from './account/customer-profile/customer-profile.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
             path: 'orders',
             component: CustomerOrderComponent
           },
+          {
+            path: 'profile',
+            component: CustomerProfileComponent
+          }
         ]
       },
       {

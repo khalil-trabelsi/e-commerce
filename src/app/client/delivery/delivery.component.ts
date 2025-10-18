@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddEditShippingAddressComponent } from './add-edit-shipping-address/add-edit-shipping-address.component';
 import { CustomersService } from '../../services/customers.service';
 import { StorageService } from '../../helpers/storage.service';
-import { map, Subject, switchMap, take, takeUntil } from 'rxjs';
+import { filter, map, Subject, switchMap, take, takeUntil } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CustomerOrderService } from '../../services/customer-order.service';
 import { CustomerOrderLine } from '../../models/customer-order';
@@ -13,7 +13,6 @@ import { shippingAddress } from '../../models/shippingAddress';
 import { NotificationService } from '../../helpers/notification.service';
 import { Router } from '@angular/router';
 import { ClientService } from '../../services/client.service';
-import { ToastrService } from '../../toastr/toastr.service';
 
 @Component({
   selector: 'app-delivery',
@@ -28,7 +27,6 @@ export class DeliveryComponent implements OnInit, OnDestroy {
   customerOrder = inject(CustomerOrderService)
   storageService = inject(StorageService);
   dialog = inject(MatDialog);
-  toastrService = inject(ToastrService)
   router = inject(Router)
   clientService = inject(ClientService)
   
@@ -55,7 +53,7 @@ export class DeliveryComponent implements OnInit, OnDestroy {
 
   customerShippingAddress: WritableSignal<shippingAddress> = signal({})
   customerShippingAddressValid = computed(() => {
-    return Object.keys(this.customerShippingAddress()).length > 0
+    return this.customerShippingAddress() ? Object.keys(this.customerShippingAddress()).length > 0 : false;
   })
 
   ngOnInit(): void {
@@ -73,19 +71,25 @@ export class DeliveryComponent implements OnInit, OnDestroy {
   }
 
   addShippingAddress(): void {
-    this.dialog.open(AddEditShippingAddressComponent, {
+    const dialogRef = this.dialog.open(AddEditShippingAddressComponent, {
       width: '42vw',
       data: {
         type: 'create'
       }
     })
+
+    dialogRef.afterClosed().pipe(takeUntil(this.destroy$),filter(addressCreated => addressCreated))
+    .subscribe(
+      _ => this.updateShippingAddress()
+    )
   }
 
   private updateShippingAddress() {
     this.customersService.getShippingAddressByCustomerId(this.customerId)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(address => {
-        this.customerShippingAddress.set(address);
+      .subscribe(addressList => {
+        const currentAddress = addressList.find(elt => elt.is_active)
+        this.customerShippingAddress.set(currentAddress);
       });
   }
   editShippingAddress(): void {
@@ -145,8 +149,6 @@ export class DeliveryComponent implements OnInit, OnDestroy {
         window.location.href = response.checkout_url;
       }
     )
-  
-    
   }
 
 

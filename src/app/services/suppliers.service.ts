@@ -12,7 +12,7 @@ export class SuppliersService {
   private refreshSubject = new Subject<void>()
   refresh$ = this.refreshSubject.asObservable()
 
-  apiUrl = environment.apiUrl;
+  apiUrl = `${environment.apiUrl}/api`;
 
   constructor(
     private httpClient: HttpClient

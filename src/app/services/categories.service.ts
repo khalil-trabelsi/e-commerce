@@ -8,7 +8,7 @@ import { map, Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class CategoriesService {
-  apiUrl = environment.apiUrl;
+  apiUrl = `${environment.apiUrl}/api`;
   private refreshCategoriesSubject = new Subject<void>();
   refreshCategories = this.refreshCategoriesSubject.asObservable()
 

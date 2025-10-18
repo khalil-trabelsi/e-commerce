@@ -33,8 +33,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   colDefs: ColDef[] = [
     { field: 'id', headerName: '#' },
-    { field: "customer", headerName: 'Client', valueFormatter: p => `${p.value.first_name} ${p.value.last_name}` },
-    { field: "total_amount", headerName: 'Total amount', valueFormatter: p => '£' + (p.value / 100) },
+    { field: "user", headerName: 'Client', valueFormatter: p => `${p.value?.first_name} ${p.value?.last_name}` },
+    { field: "total_amount", headerName: 'Total amount', valueFormatter: p => '$' + (p.value / 100) },
     { field: "created_at", headerName: 'Date de commande', valueFormatter: p => this.dateFormatter.formatDateToTimestampString(new Date(p.value))  },
     { field: 'payment_status', headerName: 'Payment', cellRenderer: (p: any) =>  
       p.data.payment_status == 'fulfilled' ?
@@ -53,7 +53,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
     private dateFormatter: DateFormattingService,
   ) {
     this.store.pipe(select(selectOrdersEntities$)).subscribe(
-      data => this.orders = data
+      data => {
+        console.log('updated')
+        console.log(data.length)
+        this.orders = data
+      }
     );
   }
 

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy, signal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Observable, Subject } from 'rxjs';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService implements OnDestroy {
   private destroy$ = new Subject<void>()
-  private apiUrl = environment.apiUrl
+  private apiUrl = `${environment.apiUrl}/api`
   constructor(
     private httpClient: HttpClient,
     private storageService: StorageService,
@@ -30,18 +30,27 @@ export class AuthService implements OnDestroy {
     return this.httpClient.get<any>(`${this.apiUrl}/auth/confirm/${token}`)
   }
 
-  signin(userCredentiels: {email: string, password: string}): Observable<{token: string, user: User}> {
-    return this.httpClient.post<{token: string, user: User}>(`${this.apiUrl}/auth/login`, userCredentiels,)
+  signin(userCredentiels: {email: string, password: string}): Observable<{access_token: string, user: User, refresh_token: string}> {
+    return this.httpClient.post<{access_token: string, user: User, refresh_token: string}>(`${this.apiUrl}/auth/login`, userCredentiels)
   }
 
   refreshToken(): Observable<{token: string}> {
-    return this.httpClient.get<{token: string}>(`${this.apiUrl}/auth/refresh_token`);
+    return this.httpClient.post<{ token: string }>(
+      `${this.apiUrl}/auth/refresh_token`,
+      {},
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.storageService.getRefreshToken()}`
+        })
+      }
+    );
   }
 
   logout() {
-    this.httpClient.get(`${this.apiUrl}/auth/logout`).subscribe(
+    this.httpClient.post<any>(`${this.apiUrl}/auth/logout`, {user_id: this.storageService.getUser().id}).subscribe(
       {
         next: (data) => {
+          console.log(data)
           this.storageService.clean();
           this.router.navigate(['/auth/login']);
         },

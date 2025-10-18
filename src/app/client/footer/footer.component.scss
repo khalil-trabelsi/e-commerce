@@ -23,7 +23,6 @@
             .footer-feature-item {
                 margin-bottom: 1.25rem;
                 padding: 0 .625rem;
-                width: 25%;
                 .footer-svg-link {
                     color: #fff;
                     text-align: center;
@@ -51,8 +50,11 @@
         color: #fff;
         .footer-socials {
             padding-right: 2.25rem;
-        border-right: 2px solid #fff;
-        margin-right: 2.5rem;
+            border-right: 2px solid #fff;
+            margin-right: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            
         }
         .footer-socials-title {
             text-transform: uppercase;
@@ -66,11 +68,7 @@
         }
 
         .footer-newsletter {
-            // display: flex;
-            // align-items: center;
-            // justify-content: center;
-            // flex-direction: column;
-            // gap: 15px;
+          
 
             & > .footer-container {
                 flex-direction: column;
@@ -82,12 +80,14 @@
             .footer-newsletter-form {
                 display: flex;
                 justify-content: center;
+                align-items: center;
                 h2 {
                     margin: 0;
                 }
+
                 input {
                     padding: 5px 10px;
-                    width: 225px;
+                    flex-basis: 225px;
                     outline: none;
                     font-size: .75rem;
                     line-height: .875rem;
@@ -104,23 +104,23 @@
                     border-top-left-radius: 0;
                     border-bottom-left-radius: 0;
                     height: 1.75rem;
-                    background-color: var(--tertiary-700);
+                    font-size: 12px;
                     color: #fff;
                 }
+
                 .footer-newsletter-icon {
                     height: 1.75rem;
                     border-top-left-radius: 6px;
                     border-bottom-left-radius: 6px;
                     background-color: #fff;
                     border: 1px solid transparent;
+                    width: fit-content;
                 }
 
                 .material-symbols-outlined {
                     color: #757575;
                     padding-left: 10px;
-
                     display: inline-block;
-                    height: 100%;
                 }
             }
 
@@ -146,4 +146,145 @@
     }
     
 
+}
+
+@media screen and (max-width: 758px) {
+    .footer-content {
+        padding-top: 5rem;
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-top {
+            background-color: #434748;
+            padding: 0.875rem 0.5rem;
+            color: #fff;
+        
+            .footer-features {
+                flex-direction: column;
+                gap: 28px;
+                flex-basis: 100%;
+
+                .footer-feature-item {
+                    margin-bottom: .25rem;
+                    padding: 0 .225rem;
+                    width: 100%;
+                    .footer-svg-link {
+                        color: #fff;
+                        text-align: center;
+                        .footer-svg {
+                            span {
+                                height: 3.75rem;
+                            }
+                        }
+                        .footer-svg-title {
+                            font-size: 14px;
+                            font-weight: 600;
+                            letter-spacing: 1.2px;
+                            line-height: 1;
+                            margin-top: .4375rem;
+
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer-middle {
+            padding: 1.875rem 1rem;
+            background-color: #4d5152;
+            color: #fff;
+            .footer-container {
+                display: flex;
+                flex-direction: column;
+            }
+            .footer-socials {
+                padding-right: 0;
+                padding-bottom: 1rem;
+                border-right-width:0px;
+                border-bottom: 2px solid #fff;
+                margin-right: 2.5rem;
+            }
+            .footer-socials-title {
+                text-transform: uppercase;
+                font-size: 18px;
+            }
+            .social-icon {
+                img {
+                    width: 15px;
+
+                }
+            }
+
+            .footer-newsletter {
+                & > .footer-container {
+                    margin-top: 0.85rem;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding-top: 0;
+                }
+
+                .footer-newsletter-form {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    h2 {
+                        margin: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    input {
+                        padding: 5px 10px;
+                        width: 225px;
+                        outline: none;
+                        font-size: .75rem;
+                        line-height: .875rem;
+                        height: 1.75rem;
+                        color: #757575;
+                        border: 0;
+                    }
+
+                    label {
+                        margin-bottom: 25px;
+                    }
+
+                    .btn {
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        height: 1.75rem;
+                        background-color: var(--tertiary-700);
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .footer-pays {
+        padding: 0.5rem 0.325rem;
+        border-top: 1px solid  #757575;
+        .footer-container {
+            justify-content: center;
+            gap: 10px;
+        }
+    }
+
+    .footer-pay-item {
+        margin-right: 5px;
+        img {
+            width: 30px;
+            opacity: 0.6;
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+        
+
+    }    
 }

@@ -42,14 +42,11 @@ export class AddEditShippingAddressComponent implements OnInit, OnDestroy {
       this.shippingForm.controls.postal.setValue(this.data.shippingAddress.postal!);
       this.shippingForm.controls.country.setValue(this.data.shippingAddress.country!);
     }
-
-    console.log(this.data)
-
   }
 
 
   onSubmit(): void {
-    const customerId = this.storageService.getUser().id;
+    const userId = this.storageService.getUser().id;
     const address = {
       'city': this.shippingForm.value.city,
       'street': this.shippingForm.value.street,
@@ -58,14 +55,14 @@ export class AddEditShippingAddressComponent implements OnInit, OnDestroy {
     }
     if (this.data.type === 'create') {
       console.log(address)
-      this.customersService.addShippingAddress({customer_id: customerId, ...address}).pipe(takeUntil(this.destroy$)).subscribe(
+      this.customersService.addShippingAddress({user_id: userId, ...address}).pipe(takeUntil(this.destroy$)).subscribe(
         data => {
           console.log(data)
           this.notificationService.notify('Votre nouvelle adresse a été enregistré avec succès!')
         }
       )
     } else {
-      this.customersService.editShippingAddress(customerId, this.shippingForm.value).pipe(takeUntil(this.destroy$)).subscribe(
+      this.customersService.editShippingAddress(userId, this.shippingForm.value).pipe(takeUntil(this.destroy$)).subscribe(
         _ => {
           this.notificationService.notify('Votre nouvelle adresse a été enregistré avec succès!')
         }

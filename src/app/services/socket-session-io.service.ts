@@ -3,7 +3,6 @@ import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
-import { ToastrService } from '../toastr/toastr.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.store';
 import { OrderModule } from '../store/actions/order.action';
@@ -23,7 +22,6 @@ export class SocketSessionIOService implements OnDestroy {
 
   constructor(
     private ngZone: NgZone,
-    private toastrService: ToastrService,
     private store: Store<AppState>,
     private httpClient: HttpClient
     
@@ -73,7 +71,7 @@ export class SocketSessionIOService implements OnDestroy {
         console.log('New order created')
         console.log(newOrder)
         this.ngZone.run(() => {
-          this.toastrService.openToastr('New order created', 'success');
+          console.log('New order created', 'success');
           this.store.dispatch(new OrderModule.SuccessCreateOrder(newOrder));
         })
       });
@@ -101,9 +99,11 @@ export class SocketSessionIOService implements OnDestroy {
   }
 
   getSession() {
+    console.log('connecting to socket...')
     this.socket = io(`${environment.apiUrl}/admin`, {
       transports: ['websocket'],
     });
+    console.log(this.socket)
     this.setupConnectionHandlers()
   }
 

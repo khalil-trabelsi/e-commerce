@@ -13,33 +13,33 @@ export class CustomersService {
   refreshCustomers = this.refreshCustomersDataSubject.asObservable();
 
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/api`;
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
   getAllCustomers(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.apiUrl}/customers`).pipe(tap(customers => console.log(customers)));
+    return this.httpClient.get<any[]>(`${this.apiUrl}/users`).pipe(tap(customers => console.log(customers)));
   }
   
   editCustomer(customer: any) {
-    return this.httpClient.put(`${this.apiUrl}/customers/${customer.id}`, customer);
+    return this.httpClient.put(`${this.apiUrl}/users/${customer.id}`, customer);
   }
   deleteCustomer(customerId: any): Observable<{customer_id: any}> {
-    return this.httpClient.delete<{customer_id: any}>(`${this.apiUrl}/customers/${customerId}`);
+    return this.httpClient.delete<{customer_id: any}>(`${this.apiUrl}/users/${customerId}`);
   }
 
   activeCustomer(customerId: number) {
-    return this.httpClient.put(`${this.apiUrl}/customers/${customerId}`, {status: 'active'});
+    return this.httpClient.put(`${this.apiUrl}/users/${customerId}`, {status: 'active'});
   }
 
   deactivateCustomer(customerId: number) {
-    return this.httpClient.put(`${this.apiUrl}/customers/${customerId}`, {status: 'inactive'});
+    return this.httpClient.put(`${this.apiUrl}/users/${customerId}`, {status: 'inactive'});
   }
 
   banCustomer(customerId: number) {
-        return this.httpClient.put(`${this.apiUrl}/customers/${customerId}`, {status: 'banned'});
+        return this.httpClient.put(`${this.apiUrl}/users/${customerId}`, {status: 'banned'});
   }
 
   refreshCustomersData() {
@@ -51,15 +51,15 @@ export class CustomersService {
   }
   
   editShippingAddress(customer_id: number, address: any) {
-    return this.httpClient.put<any>(`${this.apiUrl}/customers/${customer_id}/shipping_address`, address)
+    return this.httpClient.put<any>(`${this.apiUrl}/users/${customer_id}/shipping_address`, address)
   }
 
   getShippingAddressByCustomerId(customerId: number) {
-    return this.httpClient.get<any>(`${this.apiUrl}/customers/${customerId}/shipping_address`)
+    return this.httpClient.get<any[]>(`${this.apiUrl}/shipping/${customerId}`)
   }
 
   addCustomer(customer: Customer): Observable<Customer> {
-    return this.httpClient.post<Customer>(`${this.apiUrl}/customers`, customer);
+    return this.httpClient.post<Customer>(`${this.apiUrl}/users`, customer);
   }
 
 }

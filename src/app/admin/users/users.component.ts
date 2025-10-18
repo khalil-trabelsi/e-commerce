@@ -86,7 +86,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   ]
 
   autoSizeStrategy: SizeColumnsToFitGridStrategy | SizeColumnsToFitProvidedWidthStrategy | SizeColumnsToContentStrategy = {
-    type: 'fitCellContents',
+    type: 'fitGridWidth',
   }
 
   constructor(

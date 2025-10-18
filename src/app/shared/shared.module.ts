@@ -10,6 +10,8 @@ import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCardModule } from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import {MatListModule} from '@angular/material/list';
     MatPaginatorModule,
     MatSortModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule, 
+    MatIconModule
     ],
   exports: [
     AutocompleteMultiselectComponent,
@@ -39,7 +43,9 @@ import {MatListModule} from '@angular/material/list';
     MatPaginatorModule,
     MatSortModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule, 
+    MatIconModule
   ]
 })
 export class SharedModule { }

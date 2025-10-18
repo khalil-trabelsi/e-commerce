@@ -8,7 +8,7 @@ import { Brand } from '../admin/models/brands';
   providedIn: 'root'
 })
 export class BrandsService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/api`;
   private refreshBrandsSubject = new Subject<void>();
   refreshBrands = this.refreshBrandsSubject.asObservable();
 

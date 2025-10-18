@@ -8,7 +8,7 @@
                 </div> 
             </div>                   
             <span class="card-subtitle">
-                {{ chat?.created_at }}                        
+                {{ chat?.created_at | date:'yyyy:MM:dd hh:mm' }}                        
             </span>
         </div>
         <div #chatContainer class="card-body discussion-row">

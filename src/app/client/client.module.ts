@@ -20,6 +20,7 @@ import { CustomerOrderComponent } from './account/customer-order/customer-order.
 import { AccountComponent } from './account/account.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { SuccessPaymentComponent } from './success-payment/success-payment.component';
+import { CustomerProfileComponent } from './account/customer-profile/customer-profile.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SuccessPaymentComponent } from './success-payment/success-payment.compo
     CustomerOrderComponent,
     AccountComponent,
     SuccessPaymentComponent,
+    CustomerProfileComponent,
   ],
   imports: [
     CommonModule,

@@ -11,7 +11,7 @@ export class UsersService {
   
   private refreshDataSubj = new Subject<void>();
   refreshData = this.refreshDataSubj.asObservable()
-  private api = environment.apiUrl;
+  private api = `${environment.apiUrl}/api`;
   constructor(private httpClient: HttpClient) { }
 
   getAdminstrators(): Observable<User[]> {

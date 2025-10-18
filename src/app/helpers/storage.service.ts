@@ -40,12 +40,12 @@ export class StorageService {
     return user ? user.email : '';
   }
 
-  saveToken(token: string): void {
+  saveAccessToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token)
   }
 
-  getToken(): string | null {
+  getAccessToken(): string | null {
     return window.localStorage.getItem(TOKEN_KEY)
   }
 
@@ -55,7 +55,9 @@ export class StorageService {
   }
 
   getRefreshToken(): string | null {
+    console.log(window.localStorage.getItem(REFRESHTOKEN_KEY))
     return window.localStorage.getItem(REFRESHTOKEN_KEY)
+    // return this.getUser().token ? this.getUser().token : null;
   }
 
   isLoggedIn(): boolean {

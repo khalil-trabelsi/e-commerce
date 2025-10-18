@@ -50,11 +50,12 @@ export class RegisterComponent implements OnDestroy {
     this.authService.register(user).pipe(takeUntil(this.destroy$)).pipe(
       switchMap(_ => this.authService.signin({email: user.email ?? '', password: user.password ?? ''}))
     ).subscribe(val => {
-      if (val) {
-        this.notificationService.notify('Votre compte a été bien crée', 'ok');
-        this.formRef.resetForm();
-        this.router.navigate(['/register/confirmation'])
-      }
+      // if (val) {
+      //   this.notificationService.notify('Votre compte a été bien crée', 'ok');
+      //   this.formRef.resetForm();
+      //   this.router.navigate(['/register/confirmation'])
+      // }
+      this.router.navigateByUrl('')
     });
   }
 

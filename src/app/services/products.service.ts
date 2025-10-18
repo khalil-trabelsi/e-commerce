@@ -7,7 +7,7 @@ import { Observable, Subject, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductsService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/api`;
   private refreshProductsData$$ = new Subject<void>();
   refreshProductsData$ = this.refreshProductsData$$.asObservable();
 

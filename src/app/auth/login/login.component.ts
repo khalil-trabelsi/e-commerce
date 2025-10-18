@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.authService.signin(request).subscribe(
         response => {
           this.storageService.saveUser(response.user);
-          this.storageService.saveToken(response.token);
-          console.log(this.previousLocation)
+          this.storageService.saveAccessToken(response.access_token);
+          this.storageService.saveRefreshToken(response.refresh_token);
+          
           this.previousLocation = this.previousLocation ? this.previousLocation : response.user?.role?.label.includes('ADMIN') ? '/admin/dashboard' : '/'
           this.router.navigate([this.previousLocation]);
         }

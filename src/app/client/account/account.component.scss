@@ -36,3 +36,52 @@
     background-color: #ddd !important;
     font-weight: 600;
 }
+
+
+@media screen and (max-width: 575px) {
+    .account-container {
+        flex-direction: column;
+        .account-content {
+            margin-left: 0;
+        }
+        .sidebar-list {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            .sidebar-item {
+            &:not(:last-of-type) {
+                border-bottom-width: 0px;
+            }
+            .sidebar-link {
+                font-size: 14px;
+                padding: 0.5rem 0.8rem;
+            }
+        }
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .account-container {
+        flex-direction: column;
+        .account-content {
+            margin-left: 0;
+        }
+        .sidebar-list {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            .sidebar-item {
+            &:not(:last-of-type) {
+                border-bottom-width: 0px;
+            }
+            .sidebar-link {
+                font-size: 14px;
+                padding: 0.4rem 0.5rem;
+            }
+        }
+        }
+    }    
+}

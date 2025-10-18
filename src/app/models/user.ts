@@ -6,6 +6,7 @@ export interface User {
     password: string,
     email?: string,
     birthdate?: Date,
+    birth_date?: string,
     gender?: string,
     role?: {
         id: number,

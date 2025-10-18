@@ -8,7 +8,7 @@ export interface CustomerOrder {
     shipping_address: string;
     created_at?: Date;
     modified_at?: Date;
-    customer?: {
+    user?: {
         id: number,
         email: string,
         first_name: string,
